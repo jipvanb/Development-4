@@ -83,11 +83,11 @@ function enableSubmits(){
         if (e.key == "Enter") { // if enter is pressed
             console.log(e);
             let target = e.target;
-            while (!target.className.includes('input')) {
-                console.log(target);
+            while (target.getElementsByTagName("button").length == 0) {
+                //console.log(target);
                 target = target.parentElement;
             }
-            target.parentElement.getElementsByTagName("button")[0].click(); // click the first button
+            target.getElementsByTagName("button")[0].click();
         }
     });
 }
