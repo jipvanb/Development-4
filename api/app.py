@@ -14,7 +14,7 @@ app.debug = True
 CORS(app)
 
 # Register the JWT manager
-app.config['JWT_SECRET_KEY'] = 'super-secret'
+app.config['JWT_SECRET_KEY'] = 'qominiqueisshitinoverwatch'
 jwt = JWTManager(app)
 
 # ============================ Routes ============================
