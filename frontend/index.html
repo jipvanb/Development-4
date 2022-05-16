@@ -37,7 +37,7 @@
         <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
     </div>
     <!-- Login page -->
-    <div class="container page" id="loginPage">
+    <div class="hidden container page" id="loginPage">
         <div class="input">
             <span class="label">E-mail:</span>
             <input class="inputclass" type="text" name="email" id="email2">
@@ -51,16 +51,28 @@
         </div>
         <p>Don't have an account yet? <span onclick="showPage('registerPage')">Register</span></p>
     </div>
-    <!-- User info page -->
-    <div class="hidden page" id="mainPage">
+    <!-- main page -->
+    <div class="page" id="mainPage">
         <div class="header">
             <button class="logo">Auto kopen?</button>
             <div class="header-right">
                 <button class="button">Home</button>
                 <button class="button">About</button>
-                <button id="logout" onclick="logout()">Logout</button>
+                <button id="logout" onclick="buttonlogout()">Logout</button>
             </div>
         </div>
+
+        <h1>contact</h1>
+            <p>
+                Hospitaaldreef 5<br>
+                1315 RC Almere<br>
+                06 - 00 00 00 00<br>
+                info@email.com<br>
+                <a href="http://127.0.0.1:5501/frontend/index.html" style="color: white">http://127.0.0.1:5501/frontend/index.html</a>
+            </p>
+        <h1>werkwijze</h1>
+        <h1>werknemers</h1>
+
         <div class="footer">
             <p>made by Jip, Dominique en Roy</p>
         </div>

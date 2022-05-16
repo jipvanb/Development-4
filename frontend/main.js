@@ -35,6 +35,7 @@ function login() {
             setCookie("token", res.access_token, 365);
             showPage("mainPage");
             getUser();
+            logoutButton.innerHTML = "Logout";
         }
     });
 }
@@ -48,17 +49,33 @@ function getUser() {
     });
 }
 
-function checkCookie() {
-    // Check if cookie exists
+const logoutButton = document.getElementById("logout");
+
+function setLogoutButton(){
     if (getCookie("token")) {
-        showPage("mainPage");
-        getUser();
+        logoutButton.innerHTML = "Logout";
+        console.log("you are currently logged in");
+    } else {
+        logoutButton.innerHTML = "Login";
+        console.log("you are currently logged out");
     }
 }
 
+function buttonlogout() {
+    if (getCookie("token")) {
+        logout();
+        console.log("logged out");
+    } else {
+        showPage("loginPage");
+        console.log("go to login page");
+    }
+}
+
+
 function logout(){
     deleteCookie("token");
-    showPage("loginPage");
+    logoutButton.innerHTML = "Login";
+    console.log("logged out");
 }
 
 
@@ -148,4 +165,4 @@ function deleteCookie(cname) {
 }
 
 bindEvents();
-checkCookie();
+setLogoutButton();
