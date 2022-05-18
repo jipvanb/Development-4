@@ -10,7 +10,7 @@ class DB:
     
     @classmethod
     def get_connection(cls):
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect('car_rental.db')
         conn.row_factory = row_to_dict
         return conn
 
