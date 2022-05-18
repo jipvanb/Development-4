@@ -1,3 +1,6 @@
+./venv/scripts/activate
+./venv/scripts/activate.bat
+./venv/pyvenv.cfg
 *.pyc
 *.workspace
 *.code-workspace
