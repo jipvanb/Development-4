@@ -2,10 +2,10 @@ from flask import request
 from flask_bcrypt import generate_password_hash
 from db import DB
 from werkzeug.utils import secure_filename
-def create_user(list):
+def create_user():
     # Parse all arguments for validity
     args = request.get_json()
-    print(list, "args")
+    print(args, "args")
    
     qry = '''
     INSERT INTO 

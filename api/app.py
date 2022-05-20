@@ -46,11 +46,7 @@ def home():
 
         return render_template("home.html")
 
-@app.route('/users', methods=['POST'])
-def users():
-    conn = db_connection()
-    list = [1,1,1,1]
-    create_user(list)
+
 
 app.add_url_rule('/home', None, home, methods=['GET'])
 app.add_url_rule('/', None, home, methods=['GET'])
