@@ -1,3 +1,5 @@
+
+{% block content %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,14 +12,67 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
     </head>
+    
     <body>
+        <div class="container2">
+            <nav class="header">
+              <ul class="">
+                
+                <li>
+                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+                </li>
+                <li>
+                  <a class="" href="/">Home</a>
+                </li>
+                
+                <li class="">
+                  <a class="" href="/roosters">Cars</a>
+                </li>
+                <li class="">
+                  <a class="" href="/vakken">Pick up locations</a>
+                </li>
+                <li class="">
+                  <a class="" href="/resultaten">My reservations</a>
+                </li>
+                <li id="outBut">
+                  <a class="" href="/logout">Log in</a>
+                </li>
+           
+              </ul>
+            </nav>
+          </div>
+          <div class="pageContent">
+              <br>
+              <br><br><br>
+              <div class="contact">
+          <h1>contact</h1>
+            <p>
+                Hospitaaldreef 5<br>
+                1315 RC Almere<br>
+                06 - 00 00 00 00<br>
+                info@email.com<br>
+                <a href="http://127.0.0.1:5501/frontend/index.html" style="color: white">http://127.0.0.1:5501/frontend/index.html</a>
+            </p>
+            <h1>werkwijze</h1>
+            </div>
+            <div class="workers">
+        <h1>werknemers</h1>
+
         {% for users in users%}
-        <h1>{{users.first_name}}</h1>
+        <div class="worker-card">
+        <h1>{{users.first_name}} {{users.last_name}}</h1>
+        <p id="workerInfo">{{users.email}}</p>
+        <p id="workerInfo">{{users.phonenumber}}</p>
         
-        <img src="data:image/png;base64,{{users.photo}}">
+        <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
+        </div>
         {% endfor %}
-        <script src="" async defer></script>
+        </div>
+       </div>
     </body>
 </html>
+{% endblock %}

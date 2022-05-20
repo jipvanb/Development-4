@@ -42,8 +42,8 @@ def home():
         qry = 'SELECT * FROM users'
         users = DB.all(qry)
     if users is not None:
-       for user in users:
-           user['photo'] = base64.b64encode(bytes(str(user['photo']), 'utf-8')) 
+     for user in users:
+       user['photo'] = base64.b64encode(user['photo']).decode('ascii')
        
        
        
@@ -61,6 +61,10 @@ def pic():
             (:photo)'''
     id = DB.insert(qry, photo)
     return {'message': 'success', 'id': id}, 201
+@app.route('/index', methods=['GET'])
+def index():
+    return render_template("index.html")
+    
 
 
 app.add_url_rule('/home', None, home, methods=['GET'])

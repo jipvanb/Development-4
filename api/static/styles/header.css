@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:wght@500&family=Oswald:wght@200;500&display=swap");
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+ 
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 3.5vh 3vh;
+  text-decoration: none;
+  font-size: 2em;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: rgba(17, 17, 17, 0.084);
+}
+
+.header {
+  background-color: #303434;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  box-shadow: 4px 4px 5px #0000002f;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 2rem;
+}
+#logo img {
+  max-height: 8vh;
+  text-align: center;
+  line-height:151px;
+  vertical-align: middle;
+  margin-top: 1vh;
+  margin-left: 3vh;
+}
+#logBut {
+  float: right;
+}
+#outBut {
+  float: right;
+}
+.logo{
+  height: 12vh;
+}
