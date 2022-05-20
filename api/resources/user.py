@@ -4,15 +4,18 @@ from db import DB
 from werkzeug.utils import secure_filename
 def create_user():
     # Parse all arguments for validity
-    args = request.get_json()
-    print(args, "args")
-   
+    
+    picture = request.files["picture"]
+
+    args = request.form.to_dict()
+    
+    args["picture"] = picture.read()
     qry = '''
     INSERT INTO 
         `users` 
-            (`email`, `password`, `first_name`, `last_name`, `phone_number`, `user_role_id`)
+            (`email`, `password`, `first_name`, `last_name`, `phone_number`, `user_role_id`, `photo`)
         VALUES
-            (:email, :password, :first_name, :last_name, :phonenumber, 1)
+            (:email, :password, :first_name, :last_name, :phonenumber, 1, :picture)
     '''
     
     # Hash the password before inserting

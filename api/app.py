@@ -7,6 +7,7 @@ from db import DB
 from resources.user import create_user
 from security import (login, me)
 import sqlite3 
+import base64
 # Create a new Flask application
 
 app = Flask(__name__)
@@ -33,19 +34,33 @@ jwt = JWTManager(app)
 app.add_url_rule('/users', None, create_user, methods=['POST'])
 app.add_url_rule('/auth', None, login, methods=['POST'])
 app.add_url_rule('/me', None, me, methods=['GET'])
+
 @app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-@app.route('/home', methods=['GET'])
 def home():
     conn = db_connection()
     if request.method == 'GET':
-        qry = 'SELECT * FROM cities'
-        cities = DB.all(qry)
-    if cities is not None:
+        qry = 'SELECT * FROM users'
+        users = DB.all(qry)
+    if users is not None:
+       for user in users:
+           user['photo'] = base64.b64encode(bytes(str(user['photo']), 'utf-8')) 
+       
+       
+       
+    return render_template("home.html", users=users)
+@app.route('/pic', methods=['POST'])
+def pic():
+    conn = db_connection()
+    photo = request.files.to_dict
+    print('j')
 
-        return render_template("home.html")
-
+    print(photo, "photo")
+    qry = '''INSERT INTO USERS
+     (`photo`)
+        VALUES
+            (:photo)'''
+    id = DB.insert(qry, photo)
+    return {'message': 'success', 'id': id}, 201
 
 
 app.add_url_rule('/home', None, home, methods=['GET'])
