@@ -14,15 +14,7 @@ class DB:
         conn.row_factory = row_to_dict
         return conn
 
-    @classmethod
-    def create(cls):
-        conn = cls.get_connection()
-        c = conn.cursor()
-        sql_file = open("create_db.sql")
-        sql_as_string = sql_file.read()
-        c.execute(sql_as_string)
-        conn.commit()
-        conn.close()
+    
 
     @classmethod
     def one(cls, query, params = ()):

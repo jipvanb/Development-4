@@ -10,16 +10,18 @@ function register(e) {
     let data = {
         password: getValue("password1"),
         email: getValue("email1"),
-        firstname: getValue("firstname"),
-        lastname: getValue("lastname"),
+        first_name: getValue("firstname"),
+        last_name: getValue("lastname"),
+        phonenumber: getValue("phonenumber")
+
     };
 
     // Submit data to API
-    api("users", "POST", data).then((res) => {
-        if (res.message == 'success') {
-            alert("User created successfully");
-        }
-    });
+    // api("users", "POST", data).then((res) => {
+    //     if (res.message == 'success') {
+    //         alert("User created successfully");
+    //     }
+    // });
 }
 
 function login() {
@@ -92,6 +94,7 @@ function showPage(id){
 function bindEvents() {
     connectButton("register", register);
     connectButton("login", login);
+    
     enableSubmits();
 }
 

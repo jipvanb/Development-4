@@ -8,6 +8,7 @@ from resources.user import create_user
 from security import (login, me)
 import sqlite3 
 # Create a new Flask application
+
 app = Flask(__name__)
 app.debug = True
 def db_connection():
@@ -18,6 +19,8 @@ def db_connection():
             print(e)
     return conn
 # Enable cors on the server
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://img.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
 
 # Register the JWT manager
@@ -42,7 +45,13 @@ def home():
     if cities is not None:
 
         return render_template("home.html")
-        
+
+@app.route('/users', methods=['POST'])
+def users():
+    conn = db_connection()
+    list = [1,1,1,1]
+    create_user(list)
+
 app.add_url_rule('/home', None, home, methods=['GET'])
 app.add_url_rule('/', None, home, methods=['GET'])
 # Start app
