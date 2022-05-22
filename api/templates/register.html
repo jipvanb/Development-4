@@ -1,0 +1,41 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static',filename='styles/main.css') }}"
+/>
+<div class="container page" id="registerPage">
+    <form action="http://127.0.0.1:5000/users" enctype="multipart/form-data" method="POST">
+    <div class="input">
+        <span class="label">E-mail:</span>
+        <input class="inputclass" type="text" name="email" id="email1">
+    </div>
+    <div class="input">
+        <span class="label">Password:</span>
+        <input class="inputclass" type="password" name="password" id="password1">
+    </div>
+    <div class="input">
+        <span class="label">Confirm:</span>
+        <input class="inputclass" type="password" name="confirm" id="confirm">
+    </div>
+    <div class="input">
+        <span class="label">First name:</span>
+        <input class="inputclass" type="text" name="first_name" id="first_name">
+    </div>
+    <div class="input">
+        <span class="label">Last name:</span>
+        <input class="inputclass" type="text" name="last_name" id="last_name">
+    </div>
+    <div class="input">
+        <span class="label">Phone number:</span>
+        <input class="inputclass" type="text" name="phonenumber" id="phonenumber">
+    </div>
+    <div class="input">
+        <span class="label">Picture:</span>
+        <input class="inputclass" type="file" name="picture" id="picture">
+    </div>
+    <div class="input">
+        <input type="submit">
+    </div>
+</form>
+    <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
+</div>

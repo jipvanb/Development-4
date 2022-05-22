@@ -8,6 +8,7 @@ from resources.user import create_user
 from security import (login, me)
 import sqlite3 
 import base64
+from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity, verify_jwt_in_request)
 # Create a new Flask application
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ def db_connection():
 # Enable cors on the server
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://img.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 CORS(app)
 
 # Register the JWT manager
@@ -38,8 +41,12 @@ app.add_url_rule('/me', None, me, methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     conn = db_connection()
+    if request.cookies.get('access_token'):
+        print(request.cookies.get('access_token'))
+   
+        
     if request.method == 'GET':
-        qry = 'SELECT * FROM users'
+        qry = 'SELECT * FROM users WHERE user_role_id = 2'
         users = DB.all(qry)
     if users is not None:
      for user in users:
@@ -48,19 +55,13 @@ def home():
        
        
     return render_template("home.html", users=users)
-@app.route('/pic', methods=['POST'])
-def pic():
-    conn = db_connection()
-    photo = request.files.to_dict
-    print('j')
 
-    print(photo, "photo")
-    qry = '''INSERT INTO USERS
-     (`photo`)
-        VALUES
-            (:photo)'''
-    id = DB.insert(qry, photo)
-    return {'message': 'success', 'id': id}, 201
+@app.route('/login', methods=['GET'])
+def loginP():
+    return render_template("login.html")
+@app.route('/register', methods=['GET'])
+def register():
+    return render_template("register.html")
 @app.route('/index', methods=['GET'])
 def index():
     return render_template("index.html")

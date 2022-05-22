@@ -17,7 +17,7 @@ li {
 
 li a {
   display: block;
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 3.5vh 3vh;
   text-decoration: none;
@@ -32,7 +32,7 @@ li a:hover {
 }
 
 .header {
-  background-color: #303434;
+  background-color: #000000;
   position: fixed;
   width: 100%;
   top: 0;
@@ -58,5 +58,5 @@ h1 {
   float: right;
 }
 .logo{
-  height: 12vh;
+  height: 11vh;
 }

@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect, url_for
 from flask_bcrypt import generate_password_hash
 from db import DB
 from werkzeug.utils import secure_filename
@@ -25,4 +25,4 @@ def create_user():
     id = DB.insert(qry, args)
 
     # Return a message and the user id
-    return {'message': 'success', 'id': id}, 201
+    return redirect(url_for('home'))

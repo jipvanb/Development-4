@@ -39,35 +39,47 @@
                   <a class="" href="/resultaten">My reservations</a>
                 </li>
                 <li id="outBut">
-                  <a class="" href="/logout">Log in</a>
+                  <a class="" href="/login">Log in</a>
                 </li>
            
               </ul>
             </nav>
           </div>
+          <div class="banner"></div>
           <div class="pageContent">
               <br>
               <br><br><br>
+              <div class="conduct">
+              <h1>Why us?</h1> 
+              <!-- werkwijze -->
+              <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
+              <h1>How does it work?</h1>
+              <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
+              <p>After picking a location, you will be able to select the date that you return the car</p>
+              <p>you can check your current reservations at any time</p>
+              <br><br><br><br>
+              <a id="start" href="/register">Get started!</a>
+            </div>
               <div class="contact">
-          <h1>contact</h1>
+          <h1>Contact</h1>
             <p>
                 Hospitaaldreef 5<br>
                 1315 RC Almere<br>
                 06 - 00 00 00 00<br>
                 info@email.com<br>
-                <a href="http://127.0.0.1:5501/frontend/index.html" style="color: white">http://127.0.0.1:5501/frontend/index.html</a>
+                <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
             </p>
-            <h1>werkwijze</h1>
             </div>
             <div class="workers">
-        <h1>werknemers</h1>
+        <h1>Employees</h1>
 
         {% for users in users%}
         <div class="worker-card">
-        <h1>{{users.first_name}} {{users.last_name}}</h1>
-        <p id="workerInfo">{{users.email}}</p>
-        <p id="workerInfo">{{users.phone_number}}</p>
-        
+        <div class="worker-info">
+        <h1 id="firstName">{{users.first_name}} {{users.last_name}}</h1>
+        <p id="workerInfo">Email: {{users.email}} <br><br> Phonenumber: {{users.phone_number}}</p>
+
+        </div>
         <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
         </div>
         {% endfor %}
