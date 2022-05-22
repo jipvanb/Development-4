@@ -35,12 +35,22 @@
                 <li class="">
                   <a class="" href="/vakken">Pick up locations</a>
                 </li>
+                {% if logged['first_name']: %}
                 <li class="">
-                  <a class="" href="/resultaten">My reservations</a>
+                  <a class="" href="/reservations">My reservations</a>
                 </li>
+                {% endif %}
+                {% if not logged['first_name']: %}
                 <li id="outBut">
                   <a class="" href="/login">Log in</a>
                 </li>
+                {% endif %}
+                {% if logged['first_name']: %}
+                  
+                <li id="outBut">
+                  <a class="" href="/logout">Log out</a>
+                </li>
+                {% endif %}
            
               </ul>
             </nav>
@@ -50,7 +60,11 @@
               <br>
               <br><br><br>
               <div class="conduct">
+                
               <h1>Why us?</h1> 
+              {% if logged: %}
+                  <h1>{{logged['first_name']}}</h1>
+              {% endif %}
               <!-- werkwijze -->
               <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
               <h1>How does it work?</h1>
