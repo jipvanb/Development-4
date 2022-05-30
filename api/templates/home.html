@@ -30,11 +30,12 @@
                 </li>
                 
                 <li class="">
-                  <a class="" href="/roosters">Cars</a>
+                  <a class="" href="/cars">Cars</a>
                 </li>
                 <li class="">
-                  <a class="" href="/vakken">Pick up locations</a>
+                  <a class="" href="/locations">Pick up locations</a>
                 </li>
+               
                 {% if logged['first_name']: %}
                 <li class="">
                   <a class="" href="/reservations">My reservations</a>
@@ -59,6 +60,9 @@
           <div class="pageContent">
               <br>
               <br><br><br>
+              {% if not logged['first_name']: %}
+              
+           
               <div class="conduct">
                 
               <h1>Why us?</h1> 
@@ -71,7 +75,7 @@
               <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
               <p>After picking a location, you will be able to select the date that you return the car</p>
               <p>you can check your current reservations at any time</p>
-              <br><br><br><br>
+             <br><br><br><br><br><br>
               <a id="start" href="/register">Get started!</a>
             </div>
               <div class="contact">
@@ -84,6 +88,18 @@
                 <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
             </p>
             </div>
+            {% endif %}
+
+            {% if logged: %}
+            <div id="loggedDiv">
+            <h1>{{logged['first_name']}}</h1>
+            <h1>Current Reservations:</h1>
+            <br><br><br>
+            <h1>Suggested cars:</h1>
+            <br><br><br>
+            <h1>Locations near you:</h1>
+          </div>
+        {% endif %}
             <div class="workers">
         <h1>Employees</h1>
 

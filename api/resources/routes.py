@@ -13,12 +13,17 @@ def db_connection():
 def home():
     conn = db_connection()
     logged = {}
+    reservations = {}
+    
     if request.cookies.get('access_token'):
         print(request.cookies.get('access_token'))
         logged = me()
         logged = logged['sub']
-        print(logged, "me")
-        
+        print(logged['id'], "me")
+        args = {"id":logged['id']}
+        qryR = ''' SELECT * FROM reservations WHERE customer_id = :id'''
+        reservations = DB.all(qryR, args)
+        print(reservations, "reservations")
     if request.method == 'GET':
         qry = 'SELECT * FROM users WHERE user_role_id = 2'
         users = DB.all(qry)
@@ -35,3 +40,12 @@ def register():
 
 def loginP():
     return render_template("login.html")
+
+def cars():
+    logged = {}
+    conn = db_connection()
+    logged = me()
+    logged = logged['sub']
+    qry= '''SELECT * FROM cars'''
+    cars = DB.all(qry)
+    return render_template("cars.html", logged=logged, cars=cars)
