@@ -45,5 +45,4 @@ app.add_url_rule('/logout', None, logout, methods=['GET'])
 app.add_url_rule('/login', None, loginP, methods=['GET'])
 # Start app   
 if __name__ == '__main__':
-    DB.create()
     app.run(debug=True)
