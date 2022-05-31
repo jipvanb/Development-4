@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    </head>
+    
+    <body>
+        <div class="container2">
+            <nav class="header">
+              <ul class="">
+                
+                <li>
+                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+                </li>
+                <li>
+                  <a class="" href="/">Home</a>
+                </li>
+                
+                <li class="">
+                  <a class="" href="/cars">Cars</a>
+                </li>
+                <li class="">
+                  <a class="" href="/locations">Pick up locations</a>
+                </li>
+               
+                {% if logged['first_name']: %}
+                <li class="">
+                  <a class="" href="/reservations">My reservations</a>
+                </li>
+                {% endif %}
+                {% if not logged['first_name']: %}
+                <li id="outBut">
+                  <a class="" href="/login">Log in</a>
+                </li>
+                {% endif %}
+                {% if logged['first_name']: %}
+                  
+                <li id="outBut">
+                  <a class="" href="/logout">Log out</a>
+                </li>
+                {% endif %}
+           
+              </ul>
+            </nav>
+          </div>
+          <div class="car-page">
+            <form action="http://127.0.0.1:5000/users" enctype="multipart/form-data" method="POST">
+                <div class="input">
+                    <span class="label">Name:</span>
+                    <input class="inputclass" type="text" name="name" id="name">
+                </div>
+                
+                <select id="study" name="study" class="registerIN">
+                    {% for types in types: %}
+                     
+
+                        <option
+                          value="{%= f'{types['id']}_{types['name']}'%}"
+                          id="{%= f'{types.id}_{types.name}'%}">
+                          {%=type["name"]%}
+                        </option>
+                        <% counter++ %>
+                          <% }) %>
+        
+                  </select>
+                <div class="input">
+                    <span class="label">type:</span>
+                    <input class="inputclass" type="password" name="password" id="password1">
+                </div>
+                <div class="input">
+                    <span class="label">Confirm:</span>
+                    <input class="inputclass" type="password" name="confirm" id="confirm">
+                </div>
+                <div class="input">
+                    <span class="label">First name:</span>
+                    <input class="inputclass" type="text" name="first_name" id="first_name">
+                </div>
+                <div class="input">
+                    <span class="label">Last name:</span>
+                    <input class="inputclass" type="text" name="last_name" id="last_name">
+                </div>
+                <div class="input">
+                    <span class="label">Phone number:</span>
+                    <input class="inputclass" type="text" name="phonenumber" id="phonenumber">
+                </div>
+                <div class="input">
+                    <span class="label">Picture:</span>
+                    <input class="inputclass" type="file" name="picture" id="picture">
+                </div>
+                <div class="input">
+                    <input type="submit">
+                </div>
+            </form>
+          </div>

@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager
 
 from db import DB
 from resources.user import create_user
-from resources.routes import (home, register, loginP, cars)
+from resources.routes import (home, register, loginP, cars, addCars)
 from security import (login, me, logout)
 import sqlite3 
 import base64
@@ -44,6 +44,7 @@ app.add_url_rule('/register', None, register, methods=['GET'])
 app.add_url_rule('/logout', None, logout, methods=['GET'])
 app.add_url_rule('/login', None, loginP, methods=['GET'])
 app.add_url_rule('/cars', None, cars, methods=['GET'])
+app.add_url_rule('/addCar', None, addCars, methods=['GET','POST'])
 # Start app   
 if __name__ == '__main__':
     DB.create()

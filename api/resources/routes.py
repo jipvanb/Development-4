@@ -49,3 +49,9 @@ def cars():
     qry= '''SELECT * FROM cars'''
     cars = DB.all(qry)
     return render_template("cars.html", logged=logged, cars=cars)
+def addCars():
+    logged = {}
+    conn = db_connection()
+    
+    
+    return render_template("addCar.html", logged=logged)
