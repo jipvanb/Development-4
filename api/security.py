@@ -1,7 +1,8 @@
+from math import exp
 from flask import request, jsonify, make_response, render_template, redirect, url_for
 from flask_bcrypt import check_password_hash
 from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity)
-
+from datetime import datetime, timedelta
 from db import DB
 import jwt
 def login():
@@ -23,17 +24,21 @@ def login():
     del user['password']
 
     # Create JWT
-    access_token = create_access_token(user)
+    dt = datetime.now() + timedelta(days=2)
+    user['exp'] = dt
+    
+    access_token = jwt.encode(user, 'qominiqueisshitinoverwatch', algorithm='HS256')
     resp = make_response(redirect('/'))
-    resp.set_cookie('access_token', access_token)
+    resp.set_cookie('access_token', access_token, expires="never")
     return resp, 200
 
 
 def me():
     user = jwt.decode(request.cookies.get('access_token'), 'qominiqueisshitinoverwatch', algorithms=["HS256"])
+    print(user)
     return user
 
 def logout():
-    resp = make_response(redirect('/'))
+    resp = make_response(redirect(url_for('home')))
     resp.set_cookie("access_token", '', expires=0)
     return resp, 200

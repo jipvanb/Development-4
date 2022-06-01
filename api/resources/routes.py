@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, redirect, jsonify, make_response, render_template
 from security import (login, me, logout)
 from db import DB
 import sqlite3 
@@ -18,7 +18,8 @@ def home():
     if request.cookies.get('access_token'):
         print(request.cookies.get('access_token'))
         logged = me()
-        logged = logged['sub']
+        print(logged)
+        
         print(logged['id'], "me")
         args = {"id":logged['id']}
         qryR = ''' SELECT * FROM reservations WHERE customer_id = :id'''
@@ -45,13 +46,38 @@ def cars():
     logged = {}
     conn = db_connection()
     logged = me()
-    logged = logged['sub']
-    qry= '''SELECT * FROM cars'''
+    print(logged)
+    
+    qry= '''SELECT * FROM cars WHERE avaliability > 0 '''
     cars = DB.all(qry)
+    for car in cars:
+       car['photo'] = base64.b64encode(car['photo']).decode('ascii')
     return render_template("cars.html", logged=logged, cars=cars)
+    
 def addCars():
     logged = {}
     conn = db_connection()
-    
-    
-    return render_template("addCar.html", logged=logged)
+    if request.method == 'GET':
+        qry = '''SELECT * FROM type'''
+        types = DB.all(qry)
+        qryN = '''SELECT * FROM manufacturer'''
+        brands = DB.all(qryN)
+        qryL = '''SELECT locations.name as location_name, locations.id as location_id, cities.name as city_name  FROM locations LEFT JOIN cities on cities.id = locations.cities_id'''
+        locations = DB.all(qryL)
+        return render_template("addCar.html", locations=locations, brands=brands, types=types, logged=logged)
+    if request.method == 'POST':
+        photo = request.files["photo"]
+        args = request.form.to_dict()
+        args["photo"] = photo.read()
+        args["type_id"] = args["type_id"].split(' ')[0]
+        args["brand_id"] = args["brand_id"].split(' ')[0]
+        args["pickup_location_id"] = args["pickup_location_id"].split(' ')[0]
+        args["avaliability"] = 1
+        qry = '''INSERT INTO 
+        `cars` 
+            (`name`, `type_id`, `pickup_location_id`, `brand_id`, `avaliability`, `capacity`, `color`, `horsepower`, `top_speed`, `value`, `photo`, `year`)
+        VALUES
+            (:name, :type_id, :pickup_location_id, :brand_id, :avaliability, :capacity, :color, :horsepower, :top_speed, :value, :photo, :year)'''
+        types = DB.insert(qry,args)
+        resp = make_response(redirect('/cars'))
+        return resp, 201

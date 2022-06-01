@@ -1,0 +1,32 @@
+.car {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  width: 100%;
+  border: 3px solid black;
+  box-shadow: 0 4px 6px #00000057;
+  text-decoration: none;
+}
+a { 
+    text-decoration: none;
+}
+.car-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
+  grid-template-rows:  repeat(auto-fit, 30vh);
+  grid-gap: 3vh;
+  justify-content: center;
+  align-items: center;
+}
+.car-picture {
+  height: 200px;
+}
+.car h1 {
+  grid-column: 2;
+}
+
+#info {
+  text-align: left;
+  margin-top: 15vh;
+  width: 1fr;
+}

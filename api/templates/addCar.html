@@ -13,6 +13,7 @@
        
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/addCar.css') }}">
     </head>
     
     <body>
@@ -55,51 +56,86 @@
             </nav>
           </div>
           <div class="car-page">
-            <form action="http://127.0.0.1:5000/users" enctype="multipart/form-data" method="POST">
+            <form action="http://127.0.0.1:5000/addCar" enctype="multipart/form-data" method="POST">
                 <div class="input">
-                    <span class="label">Name:</span>
-                    <input class="inputclass" type="text" name="name" id="name">
+                  <input class="inputclass" type="text" name="name" id="name">
+                    <span id="nameL" class="label">Name:</span>
                 </div>
-                
-                <select id="study" name="study" class="registerIN">
-                    {% for types in types: %}
+                <div class="select">
+                <span class="label">Type:</span>
+                <select id="type" name="type_id" class="registerIN">
+                    {% for item in types: %}
                      
 
-                        <option
-                          value="{%= f'{types['id']}_{types['name']}'%}"
-                          id="{%= f'{types.id}_{types.name}'%}">
-                          {%=type["name"]%}
-                        </option>
-                        <% counter++ %>
-                          <% }) %>
+                    <option id="{{ item.id }} {{ item.name}}"value="{{ item.id }} {{ item.name}}">{{ item.name }}</option>
+                      {% endfor %}
         
                   </select>
-                <div class="input">
-                    <span class="label">type:</span>
-                    <input class="inputclass" type="password" name="password" id="password1">
+                  <img id="dropdown" src="{{ url_for('static',filename='images/dropdown.png') }}" alt="" />
+                </div>
+                <div class="select">
+                <span class="label">Pick-up location:</span>
+                <select id="location" name="pickup_location_id" class="registerIN">
+                    {% for item in locations: %}
+                     
+
+                    <option id="{{ item.location_id }} {{ item.location_name}}"value="{{ item.location_id }} {{ item.location_name}}">{{ item.city_name }} -- {{ item.location_name }}</option>
+                      {% endfor %}
+        
+                  </select>
+                  <img id="dropdown" src="{{ url_for('static',filename='images/dropdown.png') }}" alt="" />
+                </div>
+                <div class="select">
+                <span class="label">Brand:</span>
+                <select id="brand" name="brand_id" class="registerIN">
+                    {% for item in brands: %}
+                     
+
+                    <option id="{{ item.id }} {{ item.name}}"value="{{ item.id }} {{ item.name}}">{{ item.name}}</option>
+                      {% endfor %}
+        
+                  </select>
+                  <img id="dropdown" src="{{ url_for('static',filename='images/dropdown.png') }}" alt="" />
+                </div>
+                <div class="select">
+                <span class="label">Year:</span>
+                <select  id="year" name="year" class="registerIN">
+                    {% for i in range(2022, 1940, -1): %}
+                     
+
+                    <option id="{{ i }}"value="{{ i }}">{{ i }}</option>
+                      {% endfor %}
+        
+                  </select>
+                  <img id="dropdown" src="{{ url_for('static',filename='images/dropdown.png') }}" alt="" />
                 </div>
                 <div class="input">
-                    <span class="label">Confirm:</span>
-                    <input class="inputclass" type="password" name="confirm" id="confirm">
+                    <span class="label">Capacity:</span>
+                    <input class="inputclass" type="text" name="capacity" id="capacity">
                 </div>
                 <div class="input">
-                    <span class="label">First name:</span>
-                    <input class="inputclass" type="text" name="first_name" id="first_name">
+                    <span class="label">Color:</span>
+                    <input class="inputclass" type="text" name="color" id="color">
                 </div>
                 <div class="input">
-                    <span class="label">Last name:</span>
-                    <input class="inputclass" type="text" name="last_name" id="last_name">
+                    <span class="label">Horsepower:</span>
+                    <input class="inputclass" type="text" name="horsepower" id="hp">
                 </div>
                 <div class="input">
-                    <span class="label">Phone number:</span>
-                    <input class="inputclass" type="text" name="phonenumber" id="phonenumber">
+                    <span class="label">Top speed:</span>
+                    <input class="inputclass" type="text" name="top_speed" id="ts">
+                </div>
+                <div class="input">
+                    <span class="label">Value:</span>
+                    <input class="inputclass" type="text" name="value" id="value">
                 </div>
                 <div class="input">
                     <span class="label">Picture:</span>
-                    <input class="inputclass" type="file" name="picture" id="picture">
+                    <input class="inputclass" type="file" name="photo" id="photo">
                 </div>
+                
                 <div class="input">
-                    <input type="submit">
+                    <input id="sub" type="submit">
                 </div>
             </form>
           </div>

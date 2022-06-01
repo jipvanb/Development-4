@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/car.css') }}">
+    </head>
+    
+    <body>
+        <div class="container2">
+            <nav class="header">
+              <ul class="">
+                
+                <li>
+                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+                </li>
+                <li>
+                  <a class="" href="/">Home</a>
+                </li>
+                
+                <li class="">
+                  <a class="" href="/cars">Cars</a>
+                </li>
+                <li class="">
+                  <a class="" href="/locations">Pick up locations</a>
+                </li>
+               
+                {% if logged['first_name']: %}
+                <li class="">
+                  <a class="" href="/reservations">My reservations</a>
+                </li>
+                {% endif %}
+                {% if not logged['first_name']: %}
+                <li id="outBut">
+                  <a class="" href="/login">Log in</a>
+                </li>
+                {% endif %}
+                {% if logged['first_name']: %}
+                  
+                <li id="outBut">
+                  <a class="" href="/logout">Log out</a>
+                </li>
+                {% endif %}
+           
+              </ul>
+            </nav>
+          </div>
+          <div class="car-page">
+          
+            
+           
+            <div class="car">
+            
+                <table>
+                    <colgroup>
+                    <col style="width: 260px">
+                    <col style="width: 290px">
+                    </colgroup>
+                    
+                    
+                    <tbody>
+                        <tr>
+                          <td>Car name:</td>
+                          <td>{{car.car_name}}</td>
+                        </tr>
+                      <tr>
+                        <td>Color:</td>
+                        <td>{{car.color}}</td>
+                      </tr>
+                      <tr>
+                        <td>Brand:</td>
+                        <td>{{car.brand_name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Origin:</td>
+                        <td>{{car.origin}}</td>
+                      </tr>
+                      <tr>
+                        <td>Horsepower:</td>
+                        <td>{{car.horsepower}}</td>
+                      </tr>
+                      <tr>
+                        <td>Top speed:</td>
+                        <td>{{car.top_speed}}</td>
+                      </tr>
+                      <tr>
+                        <td>Value:</td>
+                        <td>{{car.value}}</td>
+                      </tr>
+                      <tr>
+                        <td>Year:</td>
+                        <td>{{car.year}}</td>
+                      </tr>
+                      <tr id="location-row" onclick="maps()">
+                        <td>Location:</td>
+                        <td>{{car.city_name}} -- {{car.location_name}}</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                    <div class="reserve">
+                        <input style="display: none" value="{{car.link}}" id="link" type="text">
+                        <h1>This car is currently avaliable!</h1>
+                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. the car is only avaliable for rental for a time period of 14 days.</p>
+           <button id="reserve">Reserve</button>
+          </div>
+          <div class="return">
+            <label id="return-date" for="dates">Select return date:</label>
+
+            <input type="date" id="dates" name="trip-start"
+                   value="{{dates['today']}}"
+                   onchange="date()"
+                   min="{{dates['today']}}" max="{{dates['end_date']}}">
+          </div>
+          <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+            <img class="car-picture"src="data:image/png;base64,{{car.photo}}">
+            </div>
+            </a>
+           
+          </div>
+          <script>
+              let dates = document.getElementById('dates').value
+              console.log(dates)
+            function date(){
+                let newDate = document.getElementById('dates').value
+                document.getElementById('currentDay').textContent = `Current return date is: ${newDate}`
+                console.log(newDate)
+            }
+            function maps(){
+                let link = document.getElementById('link').value
+                console.log(link)
+                console.log(typeof(link))
+                window.open(link)
+            }
+          </script>
+          </div>
