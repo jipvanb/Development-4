@@ -1,0 +1,11 @@
+#a div{
+    margin-bottom: 5vh;
+}
+
+#type3 {
+    transform: translate(20%);
+    color: white;
+    font-weight: 700;
+    margin-bottom: -2vh;
+    font-size:1.5rem;
+}

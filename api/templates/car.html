@@ -60,8 +60,9 @@
             
            
             <div class="car">
-            
+            <div class="specifications">
                 <table>
+                  <h1 style="text-align:center">Specifications:</h1>
                     <colgroup>
                     <col style="width: 260px">
                     <col style="width: 290px">
@@ -70,35 +71,35 @@
                     
                     <tbody>
                         <tr>
-                          <td>Car name:</td>
+                          <td>Car name</td>
                           <td>{{car.car_name}}</td>
                         </tr>
                       <tr>
-                        <td>Color:</td>
+                        <td>Color</td>
                         <td>{{car.color}}</td>
                       </tr>
                       <tr>
-                        <td>Brand:</td>
+                        <td>Brand</td>
                         <td>{{car.brand_name}}</td>
                       </tr>
                       <tr>
-                        <td>Origin:</td>
+                        <td>Origin</td>
                         <td>{{car.origin}}</td>
                       </tr>
                       <tr>
-                        <td>Horsepower:</td>
+                        <td>Horsepower</td>
                         <td>{{car.horsepower}}</td>
                       </tr>
                       <tr>
-                        <td>Top speed:</td>
+                        <td>Top speed</td>
                         <td>{{car.top_speed}}</td>
                       </tr>
                       <tr>
-                        <td>Value:</td>
+                        <td>Value</td>
                         <td>{{car.value}}</td>
                       </tr>
                       <tr>
-                        <td>Year:</td>
+                        <td>Year</td>
                         <td>{{car.year}}</td>
                       </tr>
                       <tr id="location-row" onclick="maps()">
@@ -107,34 +108,56 @@
                       </tr>
                     </tbody>
                     </table>
+                  </div>
                     <div class="reserve">
                         <input style="display: none" value="{{car.link}}" id="link" type="text">
+                        {% if logged: %}
+                      
+                   
                         <h1>This car is currently avaliable!</h1>
-                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. the car is only avaliable for rental for a time period of 14 days.</p>
+                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. <br> the car is only avaliable for rental for a time period of 14 days.</p>
            <button id="reserve">Reserve</button>
+           {% endif %}
+           {% if not logged: %}
+           
+           
+           <h1>Log in to reap the benefits of Car Rental™!</h1>
+           <p>If you dont own an account already you can register <a href="/register">here</a></p>
+           <a id="login" href="/login">Login</a>
+           {% endif %}
+           <div id="returnDiv"class="return">
+             <br><br>
+             
+             <form action="/reserve/{{car.id}}" method="post">
+               <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
+               <label id="startLabel" class="return-date" for="dates">Select start date:</label>
+                <input type="date" id="start" name="start_date"
+                    value="1970-01-01"
+                     
+                    min="{{dates['today']}}" >
+               <label id="endLabel" class="return-date" for="dates">Select return date:</label>
+              
+                <input type="date" id="end" name="return_date"
+                    value="1970-01-01"
+                     
+                    min="{{dates['today']}}" max="{{dates['end_date']}}">
+             </form>
+            
+                    <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+           </div>
           </div>
-          <div class="return">
-            <label id="return-date" for="dates">Select return date:</label>
-
-            <input type="date" id="dates" name="trip-start"
-                   value="{{dates['today']}}"
-                   onchange="date()"
-                   min="{{dates['today']}}" max="{{dates['end_date']}}">
-          </div>
-          <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+          <div class="imgdiv">
+           <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{car.car_name}}</h1>
+            <br><br>
             <img class="car-picture"src="data:image/png;base64,{{car.photo}}">
+            <br><br>
+          </div>
             </div>
             </a>
            
           </div>
           <script>
-              let dates = document.getElementById('dates').value
-              console.log(dates)
-            function date(){
-                let newDate = document.getElementById('dates').value
-                document.getElementById('currentDay').textContent = `Current return date is: ${newDate}`
-                console.log(newDate)
-            }
+              
             function maps(){
                 let link = document.getElementById('link').value
                 console.log(link)
@@ -142,4 +165,5 @@
                 window.open(link)
             }
           </script>
+          <script src="{{ url_for('static',filename='js/car.js') }}"></script>
           </div>

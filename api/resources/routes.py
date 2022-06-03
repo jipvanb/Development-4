@@ -22,9 +22,11 @@ def home():
         
         print(logged['id'], "me")
         args = {"id":logged['id']}
-        qryR = ''' SELECT * FROM reservations WHERE customer_id = :id'''
+        qryR = ''' SELECT  photo, customer_id, reservation_date, return_date, start_date, cars.id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id WHERE customer_id = :id'''
         reservations = DB.all(qryR, args)
-        print(reservations, "reservations")
+        for reservation in reservations:
+            reservation['photo'] = base64.b64encode(reservation['photo']).decode('ascii')
+        
     if request.method == 'GET':
         qry = 'SELECT * FROM users WHERE user_role_id = 2'
         users = DB.all(qry)
@@ -34,7 +36,7 @@ def home():
        
        
        
-    return render_template("home.html", logged=logged, users=users)
+    return render_template("home.html", logged=logged, users=users, reservations=reservations)
 
 def register():
     return render_template("register.html")
@@ -44,17 +46,19 @@ def loginP():
 
 def cars():
     logged = {}
-    conn = db_connection()
-    logged = me()
+    if request.cookies.get('access_token'):
+        conn = db_connection()
+        logged = me()
     print(logged)
     
-    qry= '''SELECT * FROM cars WHERE avaliability > 0 '''
+    qry= '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id WHERE avaliability > 0 '''
     cars = DB.all(qry)
     for car in cars:
        car['photo'] = base64.b64encode(car['photo']).decode('ascii')
     return render_template("cars.html", logged=logged, cars=cars)
     
 def addCars():
+    
     logged = {}
     conn = db_connection()
     if request.method == 'GET':
