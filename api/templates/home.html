@@ -15,6 +15,8 @@
        
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
     </head>
     
     <body>
@@ -94,6 +96,24 @@
             <div id="loggedDiv">
             <h1>{{logged['first_name']}}</h1>
             <h1>Current Reservations:</h1>
+            {% for reservation in reservations:%}
+            
+            <a id="a" style="background-color: {{ reservation.color }}" href="/cars/{{reservation.id}}">
+              <div style="background-color: {{ reservation.color }}" class="car">
+              
+              <h1 id="firstName">{{reservation.car_name}}</h1>
+              <p id="type">{{reservation.type_name}}</p>
+              <p id="type2">{{reservation.year}}</p>
+              <p id="type3">Reservation starts: {{reservation.start_date}}</p>
+              <p id="type3">Reservation ends: {{reservation.return_date}}</p>
+
+              <div class="imgDiv">
+              <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
+              </div>
+              <button id="more">+</button>
+              </div>
+              </a>
+            {% endfor %}
             <br><br><br>
             <h1>Suggested cars:</h1>
             <br><br><br>
