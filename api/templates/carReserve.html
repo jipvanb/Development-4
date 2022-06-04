@@ -80,39 +80,39 @@
                     <tbody>
                         <tr>
                           <td>Car name</td>
-                          <td><input value="{{car.car_name}}" type="text"></td>
+                          <td>{{car.car_name}}</td>
                         </tr>
                       <tr>
                         <td>Color</td>
-                        <td><input value="{{car.color}}" type="text"></td>
+                        <td>{{car.color}}</td>
                       </tr>
                       <tr>
                         <td>Brand</td>
-                        <td><input value="{{car.brand_name}}" type="text"></td>
+                        <td>{{car.brand_name}}</td>
                       </tr>
                       <tr>
                         <td>Origin</td>
-                        <td><input value="{{car.origin}}" type="text"></td>
+                        <td>{{car.origin}}</td>
                       </tr>
                       <tr>
                         <td>Horsepower</td>
-                        <td><input value="{{car.horsepower}}" type="text"></td>
+                        <td>{{car.horsepower}}</td>
                       </tr>
                       <tr>
                         <td>Top speed</td>
-                        <td><input value="{{car.top_speed}}" type="text"></td>
+                        <td>{{car.top_speed}}</td>
                       </tr>
                       <tr>
                         <td>Value</td>
-                        <td><input value="{{car.value}}" type="text"></td>
+                        <td>{{car.value}}</td>
                       </tr>
                       <tr>
                         <td>Year</td>
-                        <td><input value="{{car.year}}" type="text"></td>
+                        <td>{{car.year}}</td>
                       </tr>
-                      <tr id="location-row">
+                      <tr id="location-row" onclick="maps()">
                         <td>Location:</td>
-                        <td><input value="{{car.city_name}}" type="text"><input value="{{car.location_name}}" type="text"></td>
+                        <td>{{car.city_name}} -- {{car.location_name}}. Get directions -> </td>
                       </tr>
                     </tbody>
                     </table>

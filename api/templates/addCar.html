@@ -18,42 +18,50 @@
     
     <body>
         <div class="container2">
-            <nav class="header">
-              <ul class="">
+          <nav class="header">
+            <ul class="">
+              
+              <li>
+                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+              </li>
+              <li>
+                <a class="" href="/">Home</a>
+              </li>
+              
+              
+              {% if not logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/reserve">Reserve</a>
+              </li>
+            {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/cars">Cars</a>
+              </li>
+              {% endif %}
+              <li class="">
+                <a class="" href="/locations">Pick up locations</a>
+              </li>
+             
+              {% if logged['first_name']: %}
+              <li class="">
+                <a class="" href="/reservations">My reservations</a>
+              </li>
+              {% endif %}
+              {% if not logged['first_name']: %}
+              <li id="outBut">
+                <a class="" href="/login">Log in</a>
+              </li>
+              {% endif %}
+              {% if logged['first_name']: %}
                 
-                <li>
-                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
-                </li>
-                <li>
-                  <a class="" href="/">Home</a>
-                </li>
-                
-                <li class="">
-                  <a class="" href="/cars">Cars</a>
-                </li>
-                <li class="">
-                  <a class="" href="/locations">Pick up locations</a>
-                </li>
-               
-                {% if logged['first_name']: %}
-                <li class="">
-                  <a class="" href="/reservations">My reservations</a>
-                </li>
-                {% endif %}
-                {% if not logged['first_name']: %}
-                <li id="outBut">
-                  <a class="" href="/login">Log in</a>
-                </li>
-                {% endif %}
-                {% if logged['first_name']: %}
-                  
-                <li id="outBut">
-                  <a class="" href="/logout">Log out</a>
-                </li>
-                {% endif %}
-           
-              </ul>
-            </nav>
+              <li id="outBut">
+                <a class="" href="/logout">Log out</a>
+              </li>
+              {% endif %}
+         
+            </ul>
+          </nav>
           </div>
           <div class="car-page">
             <form action="http://127.0.0.1:5000/addCar" enctype="multipart/form-data" method="POST">

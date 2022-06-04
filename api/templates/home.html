@@ -31,9 +31,17 @@
                   <a class="" href="/">Home</a>
                 </li>
                 
+                
+                {% if not logged['user_role_id'] == 2: %}
+                <li class="">
+                  <a class="" href="/reserve">Reserve</a>
+                </li>
+              {% endif %}
+                {% if logged['user_role_id'] == 2: %}
                 <li class="">
                   <a class="" href="/cars">Cars</a>
                 </li>
+                {% endif %}
                 <li class="">
                   <a class="" href="/locations">Pick up locations</a>
                 </li>

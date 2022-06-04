@@ -107,7 +107,7 @@ td {
   font-weight: 600;
   position: absolute;
   padding-left: 15px;
-  transform: translate(60%, 60%);
+  transform: translate(37%, 60%);
   pointer-events: none; 
 }
 #endLabel {

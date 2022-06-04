@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, jsonify, make_response, render_template
+from flask import Flask, request, redirect, jsonify, make_response, render_template, abort
 from security import (login, me, logout)
 from db import DB
 import sqlite3 
@@ -46,6 +46,24 @@ def loginP():
 
 def cars():
     logged = {}
+    if not request.cookies.get('access_token'):
+        return abort(401)
+
+    else:
+        conn = db_connection()
+        logged = me()
+        if logged['user_role_id'] != 2:
+            return abort(403)
+    print(logged)
+    
+    qry= '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id WHERE avaliability > 0 '''
+    cars = DB.all(qry)
+    for car in cars:
+       car['photo'] = base64.b64encode(car['photo']).decode('ascii')
+    return render_template("cars.html", logged=logged, cars=cars)
+    
+def reserve():
+    logged = {}
     if request.cookies.get('access_token'):
         conn = db_connection()
         logged = me()
@@ -55,8 +73,8 @@ def cars():
     cars = DB.all(qry)
     for car in cars:
        car['photo'] = base64.b64encode(car['photo']).decode('ascii')
-    return render_template("cars.html", logged=logged, cars=cars)
-    
+    return render_template("reserve.html", logged=logged, cars=cars)
+        
 def addCars():
     
     logged = {}
