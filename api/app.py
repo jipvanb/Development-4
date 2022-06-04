@@ -102,30 +102,41 @@ def reserveID(car_id):
     print(car_id)
     args = {"car_id": car_id}
     car = DB.one(qry, {'car_id': car_id})
+    reservations = DB.all('SELECT reservation_date FROM reservations WHERE cars_id = :car_id AND reservation_date > DATE()', {"car_id": car_id})
+    print(reservations, "reservations")
+    disabledDays = []
+    for reservation in reservations:
+        
+        disabledDays.append(reservation['reservation_date'].split(' ')[0])
+    print(disabledDays)
     today = date.today() + timedelta(days=1)
     end_date = date.today() + timedelta(days=41)
     dates = {'today': today, 'max': end_date}
 
     car['photo'] = base64.b64encode(car['photo']).decode('ascii')
-    return render_template("carReserve.html", dates=dates, logged=logged, car=car)
+    return render_template("carReserve.html", dates=dates, logged=logged, disabledDays=disabledDays, car=car)
 
 @app.route('/reservations/<int:car_id>', methods=['POST'])
 def reservations(car_id):
      logged = {}
      logged = me()
-     today = date.today()
+     today = datetime.now()
+     today = str(today).split('.')[0]
      print(today)
      dates = request.form.to_dict()
-     args = {'cars_id':str(car_id), 'customer_id':logged['id'], 'reservation_date':date.today(), 'start_date':dates["start_date"], 'return_date':dates["return_date"]}
+     args = {'cars_id':str(car_id), 'customer_id':logged['id'], 'reservation_date':dates['start_date'], 'date_of_reservation':today}
      qry = '''
      
     INSERT INTO 
         `reservations` 
-            (`customer_id`, `cars_id`, `reservation_date`, `return_date`, `start_date`)
+            (`customer_id`, `cars_id`, `reservation_date`, `date_of_reservation`)
         VALUES
-            (:customer_id, :cars_id, :reservation_date, :return_date, :start_date)
+            (:customer_id, :cars_id, :reservation_date, :date_of_reservation)
     '''
+        
+        
      DB.insert(qry,args)
+     
      resp = make_response(redirect('/'))
      return resp, 201
 

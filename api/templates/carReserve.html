@@ -10,7 +10,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
        
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/car.css') }}">
@@ -136,12 +136,12 @@
            <div id="returnDiv"class="return">
              <br><br>
              
-             <form action="/reservervations/{{car.id}}" method="post">
+             <form action="/reservations/{{car.id}}" method="post">
                <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
                <label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
                 <input type="datetime-local" id="start" name="start_date"
-                    value="1970-01-01T00:00:00"
-                     
+                    
+                    datesDisabled="['06-06-2022']"
                     min="{{dates['today']}}T08:00"
                     max="{{dates['max']}}T20:00" >
                 
@@ -159,8 +159,10 @@
           </div>
             </div>
             </a>
-           
+           <p id="disabledDays" style="display: none;">{{disabledDays}}</p>
+           <p id="maxDate" style="display: none;">{{dates['max']}}</p>
           </div>
+          <div id="foo"></div>
           <script>
               
             function maps(){
@@ -169,6 +171,54 @@
                 console.log(typeof(link))
                 window.open(link)
             }
+
+
           </script>
           <script src="{{ url_for('static',filename='js/car.js') }}"></script>
+          <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+          <script>
+         let disabledDays = document.getElementById('disabledDays').textContent 
+         let maxDate = document.getElementById('maxDate').textContent 
+         console.log(disabledDays)
+         var str = "['2022-06-23', '2022-06-17']";    
+         disabledDays = disabledDays.split("'")
+         let days = []
+         disabledDays.forEach((day) => {
+          
+          if (day.length > 2){
+            days.push(day)
+          }
+         })
+         console.log(days)
+            config = {
+              enableTime: true,
+              dateFormat: "Y-m-d H:i",
+              minDate: "2022-06-02",
+              maxDate: maxDate,
+              time_24hr: true,
+              minTime: "08:00",
+              maxTime: "20:00",
+              disable: days,
+              altFormat: "",
+              
+            }
+            flatpickr("input[type=datetime-local]", config); 
+</script>
+          <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+          <script>
+          window.jQuery || document.write('<script src="{{
+            url_for('static', filename='jquery.js') }}">\x3C/script>')
+
+            var disabledDays = ["2022-06-12", "2022-06-15", "2022-06-11", "2022-06-17"];
+    function disableAllTheseDays(date) {
+        var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+        for (i = 0; i < disabledDays.length; i++) {
+            if($.inArray(y + '-' + (m+1) + '-' + d,disabledDays) != -1) {
+                return [false];
+            }
+        }
+        return [true];
+    }
+          </script> -->
           </div>
+          
