@@ -26,7 +26,7 @@ def login():
     # Create JWT
     dt = datetime.now() + timedelta(days=2)
     user['exp'] = dt
-    
+    print(user, "yeeeeee        ")
     access_token = jwt.encode(user, 'qominiqueisshitinoverwatch', algorithm='HS256')
     resp = make_response(redirect('/'))
     resp.set_cookie('access_token', access_token, expires="never")
