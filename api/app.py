@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, date
 from db import DB
 from resources.get_color import get_color
 from resources.user import create_user
-from resources.routes import (home, register, loginP, cars, addCars, reserve)
+from resources.routes import (home, register, loginP, cars, addCars, reserve, allreservations)
 from security import (login, me, logout)
 import sqlite3
 import base64
@@ -53,6 +53,7 @@ app.add_url_rule('/login', None, loginP, methods=['GET'])
 app.add_url_rule('/cars', None, cars, methods=['GET'])
 app.add_url_rule('/reserve', None, reserve, methods=['GET'])
 app.add_url_rule('/addCar', None, addCars, methods=['GET', 'POST'])
+app.add_url_rule('/allreservations', None, allreservations, methods=['GET'])
  
 
 
