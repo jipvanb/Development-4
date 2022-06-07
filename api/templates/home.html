@@ -31,9 +31,17 @@
                   <a class="" href="/">Home</a>
                 </li>
                 
+                
+                {% if not logged['user_role_id'] == 2: %}
+                <li class="">
+                  <a class="" href="/reserve">Reserve</a>
+                </li>
+              {% endif %}
+                {% if logged['user_role_id'] == 2: %}
                 <li class="">
                   <a class="" href="/cars">Cars</a>
                 </li>
+                {% endif %}
                 <li class="">
                   <a class="" href="/locations">Pick up locations</a>
                 </li>
@@ -104,8 +112,8 @@
               <h1 id="firstName">{{reservation.car_name}}</h1>
               <p id="type">{{reservation.type_name}}</p>
               <p id="type2">{{reservation.year}}</p>
-              <p id="type3">Reservation starts: {{reservation.start_date}}</p>
-              <p id="type3">Reservation ends: {{reservation.return_date}}</p>
+              <p id="type3">Reservation date: {{reservation.reservation_date}}</p>
+              <p id="type3">Reservation placed at: {{reservation.date_of_reservation}}</p>
 
               <div class="imgDiv">
               <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">

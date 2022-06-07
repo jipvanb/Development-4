@@ -18,42 +18,50 @@
     
     <body>
         <div class="container2">
-            <nav class="header">
-              <ul class="">
+          <nav class="header">
+            <ul class="">
+              
+              <li>
+                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+              </li>
+              <li>
+                <a class="" href="/">Home</a>
+              </li>
+              
+              
+              {% if not logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/reserve">Reserve</a>
+              </li>
+            {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/cars">Cars</a>
+              </li>
+              {% endif %}
+              <li class="">
+                <a class="" href="/locations">Pick up locations</a>
+              </li>
+             
+              {% if logged['first_name']: %}
+              <li class="">
+                <a class="" href="/reservations">My reservations</a>
+              </li>
+              {% endif %}
+              {% if not logged['first_name']: %}
+              <li id="outBut">
+                <a class="" href="/login">Log in</a>
+              </li>
+              {% endif %}
+              {% if logged['first_name']: %}
                 
-                <li>
-                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
-                </li>
-                <li>
-                  <a class="" href="/">Home</a>
-                </li>
-                
-                <li class="">
-                  <a class="" href="/cars">Cars</a>
-                </li>
-                <li class="">
-                  <a class="" href="/locations">Pick up locations</a>
-                </li>
-               
-                {% if logged['first_name']: %}
-                <li class="">
-                  <a class="" href="/reservations">My reservations</a>
-                </li>
-                {% endif %}
-                {% if not logged['first_name']: %}
-                <li id="outBut">
-                  <a class="" href="/login">Log in</a>
-                </li>
-                {% endif %}
-                {% if logged['first_name']: %}
-                  
-                <li id="outBut">
-                  <a class="" href="/logout">Log out</a>
-                </li>
-                {% endif %}
-           
-              </ul>
-            </nav>
+              <li id="outBut">
+                <a class="" href="/logout">Log out</a>
+              </li>
+              {% endif %}
+         
+            </ul>
+          </nav>
           </div>
           <div class="car-page">
           
@@ -72,39 +80,39 @@
                     <tbody>
                         <tr>
                           <td>Car name</td>
-                          <td>{{car.car_name}}</td>
+                          <td><input value="{{car.car_name}}" type="text"></td>
                         </tr>
                       <tr>
                         <td>Color</td>
-                        <td>{{car.color}}</td>
+                        <td><input value="{{car.color}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Brand</td>
-                        <td>{{car.brand_name}}</td>
+                        <td><input value="{{car.brand_name}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Origin</td>
-                        <td>{{car.origin}}</td>
+                        <td><input value="{{car.origin}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Horsepower</td>
-                        <td>{{car.horsepower}}</td>
+                        <td><input value="{{car.horsepower}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Top speed</td>
-                        <td>{{car.top_speed}}</td>
+                        <td><input value="{{car.top_speed}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Value</td>
-                        <td>{{car.value}}</td>
+                        <td><input value="{{car.value}}" type="text"></td>
                       </tr>
                       <tr>
                         <td>Year</td>
-                        <td>{{car.year}}</td>
+                        <td><input value="{{car.year}}" type="text"></td>
                       </tr>
-                      <tr id="location-row" onclick="maps()">
+                      <tr id="location-row">
                         <td>Location:</td>
-                        <td>{{car.city_name}} -- {{car.location_name}}</td>
+                        <td><input value="{{car.city_name}}" type="text"><input value="{{car.location_name}}" type="text"></td>
                       </tr>
                     </tbody>
                     </table>
@@ -128,19 +136,16 @@
            <div id="returnDiv"class="return">
              <br><br>
              
-             <form action="/reserve/{{car.id}}" method="post">
+             <form action="/reservervations/{{car.id}}" method="post">
                <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
-               <label id="startLabel" class="return-date" for="dates">Select start date:</label>
-                <input type="date" id="start" name="start_date"
-                    value="1970-01-01"
+               <label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
+                <input type="datetime-local" id="start" name="start_date"
+                    value="1970-01-01T00:00:00"
                      
-                    min="{{dates['today']}}" >
-               <label id="endLabel" class="return-date" for="dates">Select return date:</label>
-              
-                <input type="date" id="end" name="return_date"
-                    value="1970-01-01"
-                     
-                    min="{{dates['today']}}" max="{{dates['end_date']}}">
+                    min="{{dates['today']}}T08:00"
+                    max="{{dates['max']}}T20:00" >
+                
+               
              </form>
             
                     <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>

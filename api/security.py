@@ -1,5 +1,5 @@
 from math import exp
-from flask import request, jsonify, make_response, render_template, redirect, url_for
+from flask import request, jsonify, make_response, render_template, redirect, url_for, abort
 from flask_bcrypt import check_password_hash
 from flask_jwt_extended import (create_access_token, jwt_required, get_jwt_identity)
 from datetime import datetime, timedelta
@@ -14,6 +14,8 @@ def login():
     # Get user from database
     qry = 'SELECT * FROM `users` WHERE `email` = :email'
     user = DB.one(qry, {'email': email})
+    if not user:
+        return abort(403)
     del user['photo']
     print(user)
     # Check if user exists and password is correct

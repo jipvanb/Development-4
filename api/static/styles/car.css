@@ -107,7 +107,7 @@ td {
   font-weight: 600;
   position: absolute;
   padding-left: 15px;
-  transform: translate(60%, 60%);
+  transform: translate(37%, 60%);
   pointer-events: none; 
 }
 #endLabel {
@@ -123,6 +123,7 @@ td {
     height:75px;
     border: 3px solid black;
     border-radius: 25px;
+    color: white;
     
 }
 #start::-webkit-calendar-picker-indicator {
