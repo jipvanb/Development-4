@@ -43,11 +43,17 @@
                 <a class="" href="/locations">Pick up locations</a>
               </li>
              
-              {% if logged['first_name']: %}
+              {% if logged['user_role_id'] == 1: %}
               <li class="">
                 <a class="" href="/reservations">My reservations</a>
               </li>
               {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/allreservations">Reservations</a>
+              </li>
+              {% endif %}
+
               {% if not logged['first_name']: %}
               <li id="outBut">
                 <a class="" href="/login">Log in</a>

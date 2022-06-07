@@ -17,10 +17,17 @@ a:hover .car-picture {
 }
 .car-page {
   display: grid;
+  margin-top: 8vh;
+  margin-bottom: 8vh;
   grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
   grid-template-rows:  repeat(auto-fit, 30vh);
+<<<<<<< HEAD
   grid-gap: 5vh;
   row-gap: 15vh;
+=======
+  grid-gap: 4vh;
+  grid-row-gap: 15vh;
+>>>>>>> 8c8deedad6ecdae81ffae171b85825948b601970
   justify-content: center;
   align-items: center;
 }
@@ -63,6 +70,32 @@ a { border-radius: 25px;text-decoration: none;}
   grid-column: 1;
   
   transform: translateY(140%);
+  padding-left: 25px;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+#type3 {
+  grid-row: 1;
+  grid-column: 1;
+  
+  transform: translateY(180%);
+  padding-left: 25px;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.user-picture {
+  grid-row: 1;
+  grid-column: 1;
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transform: translateY(100%);
+
+  
+  transform: translateY(175%);
   padding-left: 25px;
   color: white;
   font-size: 1.3rem;
