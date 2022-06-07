@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/car.css') }}">
+    </head>
+    
+    <body>
+        <div class="container2">
+          <nav class="header">
+            <ul class="">
+              
+              <li>
+                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+              </li>
+              <li>
+                <a class="" href="/">Home</a>
+              </li>
+              
+              
+              {% if not logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/reserve">Reserve</a>
+              </li>
+            {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/cars">Cars</a>
+              </li>
+              {% endif %}
+              <li class="">
+                <a class="" href="/locations">Pick up locations</a>
+              </li>
+             
+              {% if logged['first_name']: %}
+              <li class="">
+                <a class="" href="/reservations">My reservations</a>
+              </li>
+              {% endif %}
+              {% if not logged['first_name']: %}
+              <li id="outBut">
+                <a class="" href="/login">Log in</a>
+              </li>
+              {% endif %}
+              {% if logged['first_name']: %}
+                
+              <li id="outBut">
+                <a class="" href="/logout">Log out</a>
+              </li>
+              {% endif %}
+         
+            </ul>
+          </nav>
+          </div>
+          <div class="car-page">
+          
+            
+           
+            <div class="car">
+            <div class="specifications">
+                <table>
+                  <h1 style="text-align:center">Specifications:</h1>
+                    <colgroup>
+                    <col style="width: 260px">
+                    <col style="width: 290px">
+                    </colgroup>
+                    
+                    
+                    <tbody>
+                        <tr>
+                          <td>Car name</td>
+                          <td>{{car.car_name}}</td>
+                        </tr>
+                      <tr>
+                        <td>Color</td>
+                        <td>{{car.color}}</td>
+                      </tr>
+                      <tr>
+                        <td>Brand</td>
+                        <td>{{car.brand_name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Origin</td>
+                        <td>{{car.origin}}</td>
+                      </tr>
+                      <tr>
+                        <td>Horsepower</td>
+                        <td>{{car.horsepower}}</td>
+                      </tr>
+                      <tr>
+                        <td>Top speed</td>
+                        <td>{{car.top_speed}}</td>
+                      </tr>
+                      <tr>
+                        <td>Value</td>
+                        <td>{{car.value}}</td>
+                      </tr>
+                      <tr>
+                        <td>Year</td>
+                        <td>{{car.year}}</td>
+                      </tr>
+                      <tr id="location-row" onclick="maps()">
+                        <td>Location:</td>
+                        <td>{{car.city_name}} -- {{car.location_name}}. Get directions -> </td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  </div>
+                    <div class="reserve">
+                        <input style="display: none" value="{{car.link}}" id="link" type="text">
+                        {% if logged: %}
+                      
+                   
+                        <h1>This car is currently avaliable!</h1>
+                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. <br> the car is only avaliable for rental for a time period of 14 days.</p>
+           <button id="reserve">Reserve</button>
+           {% endif %}
+           {% if not logged: %}
+           
+           
+           <h1>Log in to reap the benefits of Car Rental™!</h1>
+           <p>If you dont own an account already you can register <a href="/register">here</a></p>
+           <a id="login" href="/login">Login</a>
+           {% endif %}
+           <div id="returnDiv"class="return">
+             <br><br>
+             
+             <form action="/reservations/{{car.id}}" method="post">
+               <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
+               <label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
+                <input type="datetime-local" id="start" name="start_date"
+                    
+                    datesDisabled="['06-06-2022']"
+                    min="{{dates['today']}}T08:00"
+                    max="{{dates['max']}}T20:00" >
+                
+               
+             </form>
+            
+                    <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+           </div>
+          </div>
+          <div class="imgdiv">
+           <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{car.car_name}}</h1>
+            <br><br>
+            <img class="car-picture"src="data:image/png;base64,{{car.photo}}">
+            <br><br>
+          </div>
+            </div>
+            </a>
+           <p id="disabledDays" style="display: none;">{{disabledDays}}</p>
+           <p id="maxDate" style="display: none;">{{dates['max']}}</p>
+          </div>
+          <div id="foo"></div>
+          <script>
+              
+            function maps(){
+                let link = document.getElementById('link').value
+                console.log(link)
+                console.log(typeof(link))
+                window.open(link)
+            }
+
+
+          </script>
+          <script src="{{ url_for('static',filename='js/car.js') }}"></script>
+          <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+          <script>
+         let disabledDays = document.getElementById('disabledDays').textContent 
+         let maxDate = document.getElementById('maxDate').textContent 
+         console.log(disabledDays)
+         var str = "['2022-06-23', '2022-06-17']";    
+         disabledDays = disabledDays.split("'")
+         let days = []
+         disabledDays.forEach((day) => {
+          
+          if (day.length > 2){
+            days.push(day)
+          }
+         })
+         console.log(days)
+            config = {
+              enableTime: true,
+              dateFormat: "Y-m-d H:i",
+              minDate: "2022-06-02",
+              maxDate: maxDate,
+              time_24hr: true,
+              minTime: "08:00",
+              maxTime: "20:00",
+              disable: days,
+              altFormat: "",
+              
+            }
+            flatpickr("input[type=datetime-local]", config); 
+</script>
+          <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+          <script>
+          window.jQuery || document.write('<script src="{{
+            url_for('static', filename='jquery.js') }}">\x3C/script>')
+
+            var disabledDays = ["2022-06-12", "2022-06-15", "2022-06-11", "2022-06-17"];
+    function disableAllTheseDays(date) {
+        var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+        for (i = 0; i < disabledDays.length; i++) {
+            if($.inArray(y + '-' + (m+1) + '-' + d,disabledDays) != -1) {
+                return [false];
+            }
+        }
+        return [true];
+    }
+          </script> -->
+          </div>
+          

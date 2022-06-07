@@ -37,6 +37,7 @@ li a:hover {
   width: 100%;
   top: 0;
   box-shadow: 4px 4px 5px #0000002f;
+  z-index: 1;
 }
 
 h1 {

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+       
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/car.css') }}">
+    </head>
+    
+    <body>
+        <div class="container2">
+          <nav class="header">
+            <ul class="">
+              
+              <li>
+                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+              </li>
+              <li>
+                <a class="" href="/">Home</a>
+              </li>
+              
+              
+              {% if not logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/reserve">Reserve</a>
+              </li>
+            {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/cars">Cars</a>
+              </li>
+              {% endif %}
+              <li class="">
+                <a class="" href="/locations">Pick up locations</a>
+              </li>
+             
+              {% if logged['first_name']: %}
+              <li class="">
+                <a class="" href="/reservations">My reservations</a>
+              </li>
+              {% endif %}
+              {% if not logged['first_name']: %}
+              <li id="outBut">
+                <a class="" href="/login">Log in</a>
+              </li>
+              {% endif %}
+              {% if logged['first_name']: %}
+                
+              <li id="outBut">
+                <a class="" href="/logout">Log out</a>
+              </li>
+              {% endif %}
+         
+            </ul>
+          </nav>
+          </div>
+          <div class="car-page">
+          
+            
+           
+            <div class="car">
+            <div class="specifications">
+                <table>
+                  <h1 style="text-align:center">Specifications:</h1>
+                    <colgroup>
+                    <col style="width: 260px">
+                    <col style="width: 290px">
+                    </colgroup>
+                    
+                    
+                    <tbody>
+                        <tr>
+                          <td>Car name</td>
+                          <td><input value="{{car.car_name}}" type="text"></td>
+                        </tr>
+                      <tr>
+                        <td>Color</td>
+                        <td><input value="{{car.color}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Brand</td>
+                        <td><input value="{{car.brand_name}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Origin</td>
+                        <td><input value="{{car.origin}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Horsepower</td>
+                        <td><input value="{{car.horsepower}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Top speed</td>
+                        <td><input value="{{car.top_speed}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Value</td>
+                        <td><input value="{{car.value}}" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Year</td>
+                        <td><input value="{{car.year}}" type="text"></td>
+                      </tr>
+                      <tr id="location-row">
+                        <td>Location:</td>
+                        <td><input value="{{car.city_name}}" type="text"><input value="{{car.location_name}}" type="text"></td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  </div>
+                    <div class="reserve">
+                        <input style="display: none" value="{{car.link}}" id="link" type="text">
+                        {% if logged: %}
+                      
+                   
+                        <h1>This car is currently avaliable!</h1>
+                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. <br> the car is only avaliable for rental for a time period of 14 days.</p>
+           <button id="reserve">Reserve</button>
+           {% endif %}
+           {% if not logged: %}
+           
+           
+           <h1>Log in to reap the benefits of Car Rental™!</h1>
+           <p>If you dont own an account already you can register <a href="/register">here</a></p>
+           <a id="login" href="/login">Login</a>
+           {% endif %}
+           <div id="returnDiv"class="return">
+             <br><br>
+             
+             <form action="/reservervations/{{car.id}}" method="post">
+               <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
+               <label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
+                <input type="datetime-local" id="start" name="start_date"
+                    value="1970-01-01T00:00:00"
+                     
+                    min="{{dates['today']}}T08:00"
+                    max="{{dates['max']}}T20:00" >
+                
+               
+             </form>
+            
+                    <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+           </div>
+          </div>
+          <div class="imgdiv">
+           <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{car.car_name}}</h1>
+            <br><br>
+            <img class="car-picture"src="data:image/png;base64,{{car.photo}}">
+            <br><br>
+          </div>
+            </div>
+            </a>
+           
+          </div>
+          <script>
+              
+            function maps(){
+                let link = document.getElementById('link').value
+                console.log(link)
+                console.log(typeof(link))
+                window.open(link)
+            }
+          </script>
+          <script src="{{ url_for('static',filename='js/car.js') }}"></script>
+          </div>
