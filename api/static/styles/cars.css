@@ -21,13 +21,8 @@ a:hover .car-picture {
   margin-bottom: 8vh;
   grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
   grid-template-rows:  repeat(auto-fit, 30vh);
-<<<<<<< HEAD
-  grid-gap: 5vh;
-  row-gap: 15vh;
-=======
   grid-gap: 4vh;
   grid-row-gap: 15vh;
->>>>>>> 8c8deedad6ecdae81ffae171b85825948b601970
   justify-content: center;
   align-items: center;
 }
@@ -96,7 +91,7 @@ a { border-radius: 25px;text-decoration: none;}
 
   
   transform: translateY(175%);
-  padding-left: 25px;
+  margin-left: 3vh;
   color: white;
   font-size: 1.3rem;
   font-weight: 700;

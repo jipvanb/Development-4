@@ -54,15 +54,18 @@ app.add_url_rule('/cars', None, cars, methods=['GET'])
 app.add_url_rule('/reserve', None, reserve, methods=['GET'])
 app.add_url_rule('/addCar', None, addCars, methods=['GET', 'POST'])
 app.add_url_rule('/allreservations', None, allreservations, methods=['GET'])
+
  
+@app.route('/car/<int:car_id>', methods=['DELETE'])
+def delCar(car_id):
+    qry = '''DELETE FROM cars WHERE '''
+    return str(car_id)
 
 
 
-
-@app.route('/cars/<int:car_id>', methods=['GET'])
+@app.route('/cars/<int:car_id>', methods=['GET', 'PATCH'])
 def carsID(car_id):
     logged = {}
-    
     if not request.cookies.get('access_token'):
         return abort(401)
 
@@ -71,22 +74,31 @@ def carsID(car_id):
         logged = me()
         if logged['user_role_id'] != 2:
             return abort(403)
+    if request.method == "GET":
         
-    
-    qry = '''SELECT link, cars.id, cars.name as car_name, cars.type_id as car_type_id, locations.id as location_id, brand_id, capacity, color, horsepower, top_speed, value, photo, year, locations.name as location_name, cities.id as city_id, cities.name as city_name, code, manufacturer.name as brand_name, origin from cars LEFT JOIN locations ON cars.pickup_location_id  = locations.id
-            LEFT JOIN cities ON locations.cities_id = cities.id
-            LEFT JOIN manufacturer on cars.brand_id = manufacturer.id
-            WHERE cars.id = :car_id'''
-    print(car_id)
-    args = {"car_id": car_id}
-    car = DB.one(qry, {'car_id': car_id})
-    today = date.today() + timedelta(days=1)
-    end_date = date.today() + timedelta(days=41)
-    dates = {'today': today, 'max': end_date}
+            
+        
+        qry = '''SELECT link, cars.id, cars.name as car_name, cars.type_id as car_type_id, locations.id as location_id, brand_id, capacity, color, horsepower, top_speed, value, photo, year, locations.name as location_name, cities.id as city_id, cities.name as city_name, code, manufacturer.name as brand_name, origin from cars LEFT JOIN locations ON cars.pickup_location_id  = locations.id
+                LEFT JOIN cities ON locations.cities_id = cities.id
+                LEFT JOIN manufacturer on cars.brand_id = manufacturer.id
+                WHERE cars.id = :car_id'''
+        print(car_id)
+        args = {"car_id": car_id}
+        car = DB.one(qry, {'car_id': car_id})
+        today = date.today() + timedelta(days=1)
+        end_date = date.today() + timedelta(days=41)
+        dates = {'today': today, 'max': end_date}
 
-    car['photo'] = base64.b64encode(car['photo']).decode('ascii')
-    return render_template("car.html", dates=dates, logged=logged, car=car)
-
+        car['photo'] = base64.b64encode(car['photo']).decode('ascii')
+        return render_template("car.html", dates=dates, logged=logged, car=car)
+    if request.method == 'PATCH':
+        qry =  ''' UPDATE cars
+        SET avaliability = :avaliability,
+            deletion_date = :deletion_date
+        WHERE id = :carId               
+        '''
+        DB.update(qry, {"carId": car_id, "avaliability": 0, "deletion_date":date.today()})
+        return str(car_id)
 @app.route('/reserve/<int:car_id>', methods=['GET'])
 def reserveID(car_id):
     logged = {}
