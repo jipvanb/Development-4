@@ -20,6 +20,7 @@ a:hover .car-picture {
   grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
   grid-template-rows:  repeat(auto-fit, 30vh);
   grid-gap: 5vh;
+  row-gap: 15vh;
   justify-content: center;
   align-items: center;
 }

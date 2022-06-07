@@ -132,3 +132,13 @@ def addCars():
         types = DB.insert(qry, args)
         resp = make_response(redirect('/cars'))
         return resp, 201
+def my_reservations():
+    logged = {}
+    logged = me()
+    args = {"id": logged['id']}
+    qryR = ''' SELECT  photo, customer_id, reservation_date, date_of_reservation, cars.id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id WHERE customer_id = :id'''
+    reservations = DB.all(qryR, args)
+    for reservation in reservations:
+            reservation['photo'] = base64.b64encode(
+                reservation['photo']).decode('ascii')
+    return render_template('myReservations.html', cars=reservations, logged=logged)

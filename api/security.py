@@ -36,6 +36,9 @@ def login():
 
 
 def me():
+    if not request.cookies.get('access_token'):
+        return abort(401)
+        
     user = jwt.decode(request.cookies.get('access_token'), 'qominiqueisshitinoverwatch', algorithms=["HS256"])
     print(user)
     return user

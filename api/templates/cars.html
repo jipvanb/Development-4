@@ -4,86 +4,94 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}">
-    </head>
-    
-    <body>
-        <div class="container2">
-          <nav class="header">
-            <ul class="">
-              
-              <li>
-                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
-              </li>
-              <li>
-                <a class="" href="/">Home</a>
-              </li>
-              
-              
-              {% if not logged['user_role_id'] == 2: %}
-              <li class="">
-                <a class="" href="/reserve">Reserve</a>
-              </li>
-            {% endif %}
-              {% if logged['user_role_id'] == 2: %}
-              <li class="">
-                <a class="" href="/cars">Cars</a>
-              </li>
-              {% endif %}
-              <li class="">
-                <a class="" href="/locations">Pick up locations</a>
-              </li>
-             
-              {% if logged['first_name']: %}
-              <li class="">
-                <a class="" href="/reservations">My reservations</a>
-              </li>
-              {% endif %}
-              {% if not logged['first_name']: %}
-              <li id="outBut">
-                <a class="" href="/login">Log in</a>
-              </li>
-              {% endif %}
-              {% if logged['first_name']: %}
-                
-              <li id="outBut">
-                <a class="" href="/logout">Log out</a>
-              </li>
-              {% endif %}
-         
-            </ul>
-          </nav>
-          </div>
-          <h1 id="info" >Current assortment of avaliable cars!</h1>
-          <div class="car-page">
-            {% for cars in cars%}
-            <a style="background-color: {{ cars.color }};" href="/cars/{{cars.id}}">
-            <div class="car">
-            
-            <h1 id="firstName">{{cars.car_name}}</h1>
-            <p id="type">{{cars.type_name}}</p>
-            <p id="type2">{{cars.year}}</p>
-            <div class="imgDiv">
-            <img class="car-picture"src="data:image/png;base64,{{cars.photo}}">
-            </div>
-            <button id="more">Edit</button>
-            </div>
-            </a>
-            {% endfor %}
-          </div>
-            <div class="addCar">
 
-               
-                <h1>Add a car <a href="/addCar">here</a></h1>
-                
-            </div>
-          </div>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cars.css') }}">
+</head>
+
+<body>
+  <div class="container2">
+    <nav class="header">
+      <ul class="">
+
+        <li>
+          <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+        </li>
+        <li>
+          <a class="" href="/">Home</a>
+        </li>
+
+
+        {% if not logged['user_role_id'] == 2: %}
+        <li class="">
+          <a class="" href="/reserve">Reserve</a>
+        </li>
+        {% endif %}
+        {% if logged['user_role_id'] == 2: %}
+        <li class="">
+          <a class="" href="/cars">Cars</a>
+        </li>
+        {% endif %}
+        <li class="">
+          <a class="" href="/locations">Pick up locations</a>
+        </li>
+
+        {% if logged['first_name']: %}
+        <li class="">
+          <a class="" href="/reservations">My reservations</a>
+        </li>
+        {% endif %}
+        {% if not logged['first_name']: %}
+        <li id="outBut">
+          <a class="" href="/login">Log in</a>
+        </li>
+        {% endif %}
+        {% if logged['first_name']: %}
+
+        <li id="outBut">
+          <a class="" href="/logout">Log out</a>
+        </li>
+        {% endif %}
+
+      </ul>
+    </nav>
+
+
+
+  </div>
+  <h1 id="info">Current assortment of avaliable cars!</h1>
+  <div class="car-page">
+    {% for cars in cars%}
+    <a style="background-color: {{ cars.color }};" href="/cars/{{cars.id}}">
+      <div class="car">
+
+        <h1 id="firstName">{{cars.car_name}}</h1>
+        <p id="type">{{cars.type_name}}</p>
+        <p id="type2">{{cars.year}}</p>
+        <div class="imgDiv">
+          <img class="car-picture" src="data:image/png;base64,{{cars.photo}}">
+        </div>
+        <button id="more">Edit</button>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="ruimtes">
+    <div id="ruimte1" class="ruimte"></div>
+    <div id="ruimte2" class="ruimte"></div>
+  </div>
+  <div class="addCar">
+
+    <br><br><br><br>
+    <h1>Add a car <a href="/addCar">here</a></h1>
+
+  </div>
+  </div>
