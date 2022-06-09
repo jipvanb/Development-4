@@ -25,4 +25,4 @@ def create_user():
     id = DB.insert(qry, args)
 
     # Return a message and the user id
-    return redirect(url_for('home'))
+    return redirect(url_for('home')), 301

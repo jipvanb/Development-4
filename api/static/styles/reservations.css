@@ -1,0 +1,125 @@
+.car {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: 100%;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px #00000086;
+    text-decoration: none;
+  }
+  a:hover .car-picture { 
+    height:250px;
+    transform: translateY(40%);
+    transition: 1.5s;
+  }
+  #a { 
+      text-decoration: none;
+  }
+  .car-page {
+    display: grid;
+    margin-top: 8vh;
+    margin-bottom: 8vh;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 600px));
+    grid-template-rows:  repeat(auto-fit, 30vh);
+    grid-gap: 4vh;
+    grid-row-gap: 15vh;
+    justify-content: center;
+    align-items: center;
+  }
+  .car-picture {
+    height: 200px;
+    float: right;
+    right: 0;
+    transform: translateY(50%)
+  }
+  .car h1 {
+    grid-column: 1/2;
+    color: white;
+    padding-left: 15px;
+    font-size: 2.5em;
+  }
+  
+  #info {
+    text-align: left;
+    margin-top: 15vh;
+    width: 1fr;
+  }
+  
+  a { border-radius: 25px;text-decoration: none;}
+  #a {
+    background-color:red;
+    
+  }
+  #type {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(100%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  #type2 {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(140%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  #type3 {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(180%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .user-picture {
+    grid-row: 1;
+    grid-column: 1;
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transform: translateY(100%);
+  
+    
+    transform: translateY(175%);
+    margin-left: 3vh;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  
+  .more {
+    border-radius: 25px;
+    width: 100px;
+    height: 50px;
+    margin-left: 5vh;
+    transform: translateY(35%);
+    background-color: white;
+    font-weight: 900;
+    font-size: 1.3rem;
+    border:none;
+    box-shadow: 4px 4px 6px #00000086;
+  }
+  .more1 {
+    border-radius: 25px;
+    width: 100px;
+    height: 50px;
+    color: rgb(0, 0, 0);
+    margin-left: 5vh;
+    transform: translateY(35%);
+    background-color: rgb(255, 255, 255);
+    font-weight: 900;
+    font-size: 1.3rem;
+    border:none;
+    box-shadow: 4px 4px 6px #00000086;
+    z-index: 2;
+  }

@@ -9,3 +9,109 @@
     margin-bottom: -2vh;
     font-size:1.5rem;
 }
+
+.car {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: 100%;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px #00000086;
+    text-decoration: none;
+    
+  }
+  a:hover .car-picture { 
+    height:250px;
+    transform: translateY(40%);
+    transition: 1.5s;
+  }
+  #a { 
+      text-decoration: none;
+      height: 60%;
+  }
+  .car-page {
+    display: grid;
+    
+    
+    grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
+    grid-template-rows:  15vh 15vh;
+    grid-gap: 4vh;
+    grid-row-gap: 30vh;
+    justify-content: center;
+    align-items: center;
+  }
+  .car-picture {
+    height: 200px;
+    float: right;
+    right: 0;
+    transform: translateY(50%)
+  }
+  .car h1 {
+    grid-column: 1/2;
+    color: white;
+    padding-left: 15px;
+    font-size: 2em;
+  }
+  #info {
+    text-align: left;
+    margin-top: 15vh;
+    width: 1fr;
+  }
+  
+  a { border-radius: 25px;text-decoration: none;}
+  #a {
+    background-color:red;
+    
+  }
+  #type {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(100%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  #type2 {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(140%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  #type3 {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(150%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  #type4 {
+    grid-row: 1;
+    grid-column: 1;
+    
+    transform: translateY(190%);
+    padding-left: 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  #more {
+    border-radius: 25px;
+    width: 100px;
+    height: 50px;
+    margin-left: 5vh;
+    transform: translateY(35%);
+    background-color: white;
+    font-weight: 900;
+    font-size: 1.3rem;
+    border:none;
+    box-shadow: 4px 4px 6px #00000086;
+  }

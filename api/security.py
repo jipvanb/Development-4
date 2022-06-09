@@ -44,6 +44,8 @@ def me():
     return user
 
 def logout():
+    logged = me()
+    print("dasdasd")
     resp = make_response(redirect(url_for('home')))
     resp.set_cookie("access_token", '', expires=0)
     return resp, 200
