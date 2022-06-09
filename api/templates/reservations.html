@@ -72,7 +72,7 @@
           </div>
           <h1 id="info" >My current reservations</h1>
           
-          <div class="car-page">
+          <div id="carPage" class="car-page">
             {% for reservation in reservations%}
             <a style="background-color: {{ reservation.color }};" href="/reservations/{{reservation.reservation_id}}">
             <div class="car">

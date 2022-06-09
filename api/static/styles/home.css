@@ -90,7 +90,7 @@
     transform: translateY(150%);
     padding-left: 25px;
     color: white;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 700;
   }
   #type4 {
@@ -100,7 +100,7 @@
     transform: translateY(190%);
     padding-left: 25px;
     color: white;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 700;
   }
   #more {
@@ -114,4 +114,69 @@
     font-size: 1.3rem;
     border:none;
     box-shadow: 4px 4px 6px #00000086;
+  }
+
+  @media (min-width: 1000px) and (max-width: 1920px)  {
+    .car-page {
+      display: grid;
+      
+      
+      grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+      grid-template-rows:  15vh 15vh;
+      grid-gap: 4vh;
+      grid-row-gap: 30vh;
+      justify-content: center;
+      align-items: center;
+    }
+    #type {
+      grid-row: 1;
+      grid-column: 1;
+      
+      transform: translateY(100%);
+      padding-left: 25px;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    #type2 {
+      grid-row: 1;
+      grid-column: 1;
+      
+      transform: translateY(140%);
+      padding-left: 25px;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    #type3 {
+      grid-row: 1;
+      grid-column: 1;
+      
+      transform: translateY(150%);
+      padding-left: 25px;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    #type4 {
+      grid-row: 1;
+      grid-column: 1;
+      
+      transform: translateY(190%);
+      padding-left: 25px;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .car-picture {
+      height: 100px;
+      float: right;
+      right: 0;
+      transform: translateY(120%)
+    }
+    a:hover .car-picture { 
+      height:125px;
+      transform: translateY(70%);
+      transition: 1.5s;
+    }
   }

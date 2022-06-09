@@ -157,7 +157,8 @@ def reservationsChanges(reservation_id):
     logged = me()
     today = datetime.now()
     today = str(today).split('.')[0]
-    print(today)
+    print(today, "yesh")
+
     args = request.form.to_dict()
     # check if args has del
     if 'del' in args:
