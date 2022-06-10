@@ -78,6 +78,7 @@ body {
 }
 .pageContent {
   margin-left: 3vh;
+  margin-right: 3vh;
   margin-top: 3vh;
   display: grid;
   grid-template-columns: 1fr 0.6fr;
@@ -103,13 +104,14 @@ body {
 }
 .workers {
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: 100px 200px 200px 200px;
   grid-gap: 2vh;
   grid-row: 1;
   grid-column: 2;
   border-top: 4px solid black;
   border-bottom: 4px solid black;
   padding-bottom: 15px;
+  
 }
 #workerInfo {
   color: rgb(255, 255, 255);
@@ -197,7 +199,7 @@ h1 {
   grid-row: 1;
   grid-column: 1;
     border-top: 4px solid black;
-  border-bottom: 4px solid black;
+  
   width: 80%;
 }
 .car-page{
@@ -216,7 +218,11 @@ input {
   color: black;
 }
 
+<<<<<<< HEAD
 @media (min-width: 1000px) and (max-width: 1920px)  {
    
   
 }
+=======
+
+>>>>>>> 4889945b17b617084d0657986af72d17250749c9

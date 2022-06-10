@@ -43,11 +43,17 @@
                 <a class="" href="/locations">Pick up locations</a>
               </li>
              
-              {% if logged['first_name']: %}
+              {% if logged['user_role_id'] == 1: %}
               <li class="">
                 <a class="" href="/reservations">My reservations</a>
               </li>
               {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/allreservations">Reservations</a>
+              </li>
+              {% endif %}
+
               {% if not logged['first_name']: %}
               <li id="outBut">
                 <a class="" href="/login">Log in</a>
@@ -118,37 +124,11 @@
                     </table>
                   </div>
                     <div class="reserve">
-                        <input style="display: none" value="{{car.link}}" id="link" type="text">
-                        {% if logged: %}
-                      
-                   
-                        <h1>This car is currently avaliable!</h1>
-                        <p>You can reserve the "{{car.car_name}}" right now and pick it up at the {{car.location_name}} in {{car.city_name}}. <br> the car is only avaliable for rental for a time period of 14 days.</p>
-           <button id="reserve">Reserve</button>
-           {% endif %}
-           {% if not logged: %}
-           
-           
-           <h1>Log in to reap the benefits of Car Rental™!</h1>
-           <p>If you dont own an account already you can register <a href="/register">here</a></p>
-           <a id="login" href="/login">Login</a>
-           {% endif %}
-           <div id="returnDiv"class="return">
-             <br><br>
-             
-             <form action="/reservervations/{{car.id}}" method="post">
-               <button id="reserve2" type="submit">Reserve {{car.car_name}} now!</button>
-               <label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
-                <input type="datetime-local" id="start" name="start_date"
-                    value="1970-01-01T00:00:00"
                      
-                    min="{{dates['today']}}T08:00"
-                    max="{{dates['max']}}T20:00" >
-                
-               
-             </form>
-            
-                    <h1 id="currentDay">Current return date is: {{dates['today']}}</h1>
+                       <button  id="reserve">Delete {{car.car_name}}</button>
+                       <h1 style="font-size:1.5rem">Put this car up for deletion. The current reservations will still be available. <br> However the reservation of this car will be disabled. And after the last reservation has passed the car will be deleted</h1>
+           <div id="returnDiv"class="return">
+            <button id="reserve">Delete</button>
            </div>
           </div>
           <div class="imgdiv">
@@ -159,10 +139,19 @@
           </div>
             </div>
             </a>
-           
+           <p id="car_idd" style="display: none;">{{car.id}}</p>
           </div>
           <script>
+            let delB = document.getElementById('reserve')
+            let car_id = document.getElementById('car_idd').textContent
+            delB.addEventListener('click', () => fetch(`http://127.0.0.1:5000/cars/${car_id}`, {
+  method: 'PATCH',
+})
+.then(res => res.text()) // or res.json()
+.then(res => console.log(res)))
               
+
+
             function maps(){
                 let link = document.getElementById('link').value
                 console.log(link)
@@ -170,5 +159,5 @@
                 window.open(link)
             }
           </script>
-          <script src="{{ url_for('static',filename='js/car.js') }}"></script>
+         
           </div>

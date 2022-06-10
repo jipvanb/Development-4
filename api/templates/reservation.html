@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
+       
+        
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/res.css') }}">
+    </head>
+    
+    <body>
+        <div class="container2">
+            <nav style="z-index:3;"class="header">
+                <ul class="">
+                  
+                  <li>
+                    <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+                  </li>
+                  <li>
+                    <a class="" href="/">Home</a>
+                  </li>
+                  
+                  
+                  {% if not logged['user_role_id'] == 2: %}
+                  <li class="">
+                    <a class="" href="/reserve">Reserve</a>
+                  </li>
+                {% endif %}
+                  {% if logged['user_role_id'] == 2: %}
+                  <li class="">
+                    <a class="" href="/cars">Cars</a>
+                  </li>
+                  {% endif %}
+                  <li class="">
+                    <a class="" href="/locations">Pick up locations</a>
+                  </li>
+                 
+                  {% if logged['user_role_id'] == 1: %}
+                  <li class="">
+                    <a class="" href="/reservations">My reservations</a>
+                  </li>
+                  {% endif %}
+                  {% if logged['user_role_id'] == 2: %}
+                  <li class="">
+                    <a class="" href="/allreservations">Reservations</a>
+                  </li>
+                  {% endif %}
+  
+                  {% if not logged['first_name']: %}
+                  <li id="outBut">
+                    <a class="" href="/login">Log in</a>
+                  </li>
+                  {% endif %}
+                  {% if logged['first_name']: %}
+                    
+                  <li id="outBut">
+                    <a class="" href="/logout">Log out</a>
+                  </li>
+                  {% endif %}
+             
+                </ul>
+              </nav>
+          </div>
+          <div class="car-page">
+          
+            
+           
+            <div class="car">
+                
+            <div class="specifications">
+              <form action="/reservations/{{reservation.reservation_id}}/changes" method="post">
+
+                <table>
+                  <h1 style="text-align:center">Reservation details:</h1>
+                    <colgroup>
+                    <col style="width: 260px">
+                    <col style="width: 290px">
+                    </colgroup>
+                    
+                    
+                    <tbody>
+                      <tr>
+                        <td>Car name</td>
+                        <td>{{reservation.car_name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Date of reservation</td>
+                        <td>{{reservation.date_of_reservation}}</td>
+                      </tr>
+                      <tr>
+                        <td>Reservation date</td>
+                        <td>{{reservation.reservation_date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Delete reservation</td>
+                        <td><form action="/reservations/{{reservation.reservation_id}}/changes" method="post">
+                            <input style="display:none" type="text" name="del" value="del" id="del">
+                            <button id="delButton" type="submit">Delete reservation</button>
+                        </form></td>
+                      </tr>
+                      
+                    </tbody>
+                    </table>
+                  </form>
+                  </div>
+                  
+                  <div class="imgdiv">
+                   <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{reservation.car_name}}</h1>
+                    <br><br>
+                    <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
+                    <br><br>
+                  </div>
+          </div>
+            </div>
+            </a>
+           
+          </div>
+          <div id="foo"></div>

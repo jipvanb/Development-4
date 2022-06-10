@@ -21,8 +21,9 @@ start.addEventListener('change', (event) => {
       }
     
     let startLabel = document.getElementById('startLabel')
+    let checks = document.querySelector('.checks')
    
-    
+    checks.style.transform = 'translate(0,-100%)'
     reserveButton.style.display = 'none'
     reserveButton2.style.display = 'block'
     

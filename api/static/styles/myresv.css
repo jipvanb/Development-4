@@ -1,0 +1,37 @@
+#a div{
+    margin-bottom: 5vh;
+}
+
+#type3 {
+    transform: translate(20%);
+    color: white;
+    font-weight: 700;
+    margin-bottom: -2vh;
+    font-size:1.5rem;
+}
+
+@media (min-width: 1000px) and (max-width: 1920px)  {
+    .car-page {
+        display: grid;
+        
+        margin-top: 25vh;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
+        grid-template-rows:  12vh 12vh;
+        grid-gap: 4vh;
+        grid-row-gap: 45vh;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .car-picture {
+        height: 160px;
+        float: right;
+        right: 0;
+        transform: translate( 10% ,50%)
+      }
+      a:hover .car-picture { 
+        height:200px;
+        transform: translateY(40%);
+        transition: 1.5s;
+      }
+  }

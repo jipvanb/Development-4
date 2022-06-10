@@ -36,11 +36,16 @@ def login():
 
 
 def me():
+    if not request.cookies.get('access_token'):
+        return abort(401)
+        
     user = jwt.decode(request.cookies.get('access_token'), 'qominiqueisshitinoverwatch', algorithms=["HS256"])
     print(user)
     return user
 
 def logout():
+    logged = me()
+    print("dasdasd")
     resp = make_response(redirect(url_for('home')))
     resp.set_cookie("access_token", '', expires=0)
     return resp, 200
