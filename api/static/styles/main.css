@@ -215,3 +215,8 @@ h1 {
 input { 
   color: black;
 }
+
+@media (min-width: 1000px) and (max-width: 1920px)  {
+   
+  
+}

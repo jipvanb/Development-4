@@ -80,3 +80,14 @@ a { border-radius: 25px;text-decoration: none;}
   border:none;
   box-shadow: 4px 4px 6px #00000086;
 }
+
+@media (min-width: 1000px) and (max-width: 1920px)  {
+  .car-page {
+    
+    grid-template-columns: repeat(auto-fit, minmax(400px, 500px));
+    grid-template-rows:  repeat(auto-fit, 30vh);
+    grid-gap: 5vh;
+    
+  }
+  
+}
