@@ -215,3 +215,18 @@ p {
   margin-bottom: 1vh;
   margin-top: 1vh;
 }
+
+#updateOptions {
+ 
+  display: block;
+  margin: auto;
+  width: 25%;
+  padding: 10px;
+  font-size: 2rem;
+  text-align: center;
+  padding: 15px;
+ 
+
+  background-color: rgba(128, 128, 128, 0.195);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.378);
+}
