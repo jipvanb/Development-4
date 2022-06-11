@@ -58,6 +58,68 @@ app.add_url_rule('/allreservations', None, allreservations, methods=['GET'])
 app.add_url_rule('/reservations', None, reservationsU, methods=['GET'])
 
 
+@ app.route('/cars/<int:car_id>', methods=['PUT'])
+def update_car(car_id):
+    logged = me()
+
+    if logged['user_role_id'] != 2:
+        return abort(403)
+    else:
+        png = request.files["picture"]
+        req = request.form.to_dict()
+        req["picture"] = png.read()
+
+        qry = '''
+            UPDATE cars
+            SET name = :name,
+                type_id = :type_id,
+                pickup_location_id = :pickup_location_id,
+                brand_id = :brand_id,
+                avaliability = :avaliability,
+                capacity = :capacity,
+                color = :color,
+                horsepower = :horsepower,
+                top_speed = :top_speed,
+                value = :value,
+                photo = :picture,
+                year = :year
+            WHERE id = :car_id             
+        '''
+
+        DB.update(qry, req)
+
+        print('auto geupdate van' + car_id)
+        return redirect(url_for('cars'), code=301)
+
+
+@ app.route('/cars/<int:car_id>/options', methods=['PUT'])
+def update_car_options(car_id):
+    logged = me()
+
+    if logged['user_role_id'] != 2:
+        return abort(403)
+    else:
+        req = request.form.to_dict()
+        optionsString = ""
+
+        for key in req:
+            optionsString += key + ", "
+
+        size = len(optionsString)
+        slicedOptions = optionsString[:size - 2]
+
+        qry = '''
+        UPDATE cars
+            SET options = :slicedOptions
+            WHERE id = :car_id             
+        '''
+
+        DB.update(qry, req)
+
+        print('auto opties geupdate van' + car_id)
+        return redirect(url_for('cars'), code=301)
+
+
 @app.route('/car/<int:car_id>', methods=['DELETE'])
 def delCar(car_id):
     qry = '''DELETE FROM cars WHERE '''
@@ -162,9 +224,10 @@ def reservationsChanges(reservation_id):
     args = request.form.to_dict()
     # check if args has del
     if 'del' in args:
-        
+
         qry = '''UPDATE reservations SET visibility = 0, time_of_deletion = :time_of_deletion WHERE id = :reservation_id'''
-        DB.update(qry, {"time_of_deletion":today ,"reservation_id": reservation_id})
+        DB.update(qry, {"time_of_deletion": today,
+                  "reservation_id": reservation_id})
         return redirect(url_for('home')), 301
 
 
@@ -172,7 +235,7 @@ def reservationsChanges(reservation_id):
 def reservations(car_id):
     logged = {}
     logged = me()
-    
+
     today = datetime.now()
     today = str(today).split('.')[0]
     print(today)
@@ -214,6 +277,7 @@ def reservations(car_id):
         DB.update(qry, {"reservation_id": reservation_id})
         resp = make_response(redirect('/'))
         return resp, 201
+
 
 # Start app
 if __name__ == '__main__':
