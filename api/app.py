@@ -6,7 +6,6 @@ from flask_jwt_extended import JWTManager
 from datetime import datetime, timedelta, date
 
 from db import DB
-from resources.get_color import get_color
 from resources.user import create_user
 from resources.routes import (
     home, register, loginP, cars, addCars, reserve, allreservations, reservationsU)
@@ -177,7 +176,7 @@ def reservations(car_id):
     today = str(today).split('.')[0]
     print(today)
     dates = request.form.to_dict()
-    if 'date_of_reservation' in dates:
+    if 'start_date' in dates:
         # give default value to pickup unless value is given
         if 'pickup' not in dates:
             pickup = 0
@@ -197,9 +196,9 @@ def reservations(car_id):
         
         INSERT INTO 
             `reservations` 
-                (`customer_id`, `cars_id`, `reservation_date`, `date_of_reservation`, `pick_up`, `address`)
+                (`customer_id`, `cars_id`, `reservation_date`, `date_of_reservation`, `pick_up`, `address`, `visibility`)
             VALUES
-                (:customer_id, :cars_id, :reservation_date, :date_of_reservation, :pick_up, :address)
+                (:customer_id, :cars_id, :reservation_date, :date_of_reservation, :pick_up, :address, 1)
         '''
 
         DB.insert(qry, args)

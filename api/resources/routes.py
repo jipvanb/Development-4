@@ -118,7 +118,7 @@ def reserve():
     #         DB.update(avaliability, {
     #                   "carId": car['cars_id'], "avaliability": 1})
     #         print(car['reservation_date'], "is in the past")
-    qryc= '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id WHERE avaliability = 0'''
+    qryc = '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id WHERE avaliability = 0'''
     cancelled = DB.all(qryc)
     print(cancelled, "cancelled")
     qry = '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id WHERE starting_date <= DATE() AND avaliability > 0'''
@@ -224,7 +224,7 @@ def reservationsU():
                 "time_of_deletion": res['time_of_deletion'], "plus_hour": time}
 
             print(time_frame, "time_frame")
-            #check if current time is between the timeframe
+            # check if current time is between the timeframe
             if datetime.now() > datetime.strptime(time_frame['time_of_deletion'], '%Y-%m-%d %H:%M:%S') and datetime.now() < datetime.strptime(time_frame['plus_hour'], '%Y-%m-%d %H:%M:%S'):
                 print("true")
             else:
@@ -232,7 +232,7 @@ def reservationsU():
                 # delete reservation
                 qry = '''DELETE FROM reservations WHERE id = :id'''
                 DB.delete(qry, {"id": res['id']})
-    qryc= '''SELECT  time_of_deletion, cars.photo, users.photo AS user_photo, reservations.id as reservation_id, first_name, last_name, customer_id, reservation_date, date_of_reservation, cars.id AS car_id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id LEFT JOIN users on customer_id = users.id WHERE customer_id = :customer_id AND visibility = 0'''
+    qryc = '''SELECT  time_of_deletion, cars.photo, users.photo AS user_photo, reservations.id as reservation_id, first_name, last_name, customer_id, reservation_date, date_of_reservation, cars.id AS car_id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id LEFT JOIN users on customer_id = users.id WHERE customer_id = :customer_id AND visibility = 0'''
     cancelled = DB.all(qryc, {"customer_id": logged['id']})
 
     qry = ''' SELECT  cars.photo, users.photo AS user_photo, reservations.id as reservation_id, first_name, last_name, customer_id, reservation_date, date_of_reservation, cars.id AS car_id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id LEFT JOIN users on customer_id = users.id WHERE customer_id = :customer_id AND reservation_date >= DATE() AND visibility = 1'''
