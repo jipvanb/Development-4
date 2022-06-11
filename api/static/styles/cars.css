@@ -109,6 +109,18 @@ a { border-radius: 25px;text-decoration: none;}
   border:none;
   box-shadow: 4px 4px 6px #00000086;
 }
+<<<<<<< HEAD
+
+@media (min-width: 1000px) and (max-width: 1920px)  {
+  .car-page {
+    
+    grid-template-columns: repeat(auto-fit, minmax(400px, 500px));
+    grid-template-rows:  repeat(auto-fit, 30vh);
+    grid-gap: 5vh;
+    
+  }
+  
+=======
 .more1 {
   border-radius: 25px;
   width: 100px;
@@ -148,4 +160,5 @@ a { border-radius: 25px;text-decoration: none;}
     transform: translateY(40%);
     transition: 1.5s;
   }
+>>>>>>> 4889945b17b617084d0657986af72d17250749c9
 }
