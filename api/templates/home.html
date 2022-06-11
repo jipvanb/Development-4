@@ -113,7 +113,7 @@
             <div class="car-page">
             {% for reservation in reservations:%}
             
-            <a id="a" style="background-color: {{ reservation.color }}" href="/cars/{{reservation.id}}">
+            <a id="a" style="background-color: {{ reservation.color }}" href="/reservations/{{reservation.reservation_id}}">
               <div style="background-color: {{ reservation.color }}" class="car">
               
               <h1 id="firstName">{{reservation.car_name}}</h1>

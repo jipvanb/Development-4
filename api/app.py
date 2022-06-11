@@ -1,3 +1,4 @@
+from dis import dis
 from urllib import response
 from flask import Flask, redirect, make_response, request, jsonify, render_template, Response, abort, url_for
 import json
@@ -134,13 +135,100 @@ def reservationID(reservation_id):
       cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id
        = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id LEFT JOIN users on
         customer_id = users.id WHERE reservations.id = :reservation_id'''
-    reservation = DB.one(qry, {"reservation_id": reservation_id})
 
+    reservation = DB.one(qry, {"reservation_id": reservation_id})
+    car_id = reservation['car_id']
+    print(car_id, "car_id")
+    qryB = '''SELECT link, cars.id, cars.name as car_name, cars.type_id as car_type_id, locations.id as location_id, brand_id, capacity, color, horsepower, top_speed, value, photo, year, locations.name as location_name, cities.id as city_id, cities.name as city_name, code, manufacturer.name as brand_name, origin from cars LEFT JOIN locations ON cars.pickup_location_id  = locations.id
+            LEFT JOIN cities ON locations.cities_id = cities.id
+            LEFT JOIN manufacturer on cars.brand_id = manufacturer.id
+            WHERE cars.id = :car_id'''
+
+    car = DB.one(qryB, {'car_id': car_id})
+    qryC = '''SELECT * FROM cars WHERE avaliability > 0'''
+    cars1 = DB.all(qryC)
+    disabled = DB.all(
+        'SELECT reservation_date FROM reservations WHERE cars_id = :car_id AND reservation_date > DATE()', {"car_id": car_id})
+
+    disabledDays = []
+    disabledDaysd = {}
+    today = date.today() + timedelta(days=1)
+    end_date = date.today() + timedelta(days=41)
+    dates = {'today': today, 'max': end_date}
+    for disabled in disabled:
+        print("asdasdasd", disabled, "Dasdasdasdasdasdads")
+        disabledDays.append(disabled['reservation_date'].split(' ')[0])
+    reservationDates = DB.all(
+        'SELECT reservation_date, reservations.id, cars_id FROM reservations WHERE reservation_date > DATE() GROUP BY cars_id, reservation_date')
+    car_date = {}
+    
+    for reservationDate in reservationDates:
+        print(" ")
+        temp = []
+        tempID = 0
+        for cars in reservationDates:
+            if cars['cars_id'] == reservationDate['cars_id']:
+                temp.append(cars['reservation_date'].split(' ')[0])
+                # print(cars['cars_id'], cars)
+                car_date[f"cars{cars['cars_id']}"] = temp
+    print(car_date)
+    
+    carIds = DB.all('SELECT id FROM cars')
+    ids = []
+    for carId in carIds:
+        
+        ids.append(f"cars{carId['id']}")
+
+    print(ids)
+        
+    # rows = reservationDates
+    # dates = []
+    # carIds = []
+    # usedIds = []
+
+    # for row in rows:
+    #     tempId = 0
+
+        
+    #     if  row["cars_id"] not in usedIds:
+    #         usedIds.append(row["cars_id"])
+    #         dateRow = []
+    #         count = 0
+
+    #         for r in rows:
+    #             count = count+1
+
+    #             if tempId == r["cars_id"]:
+    #                 dateRow.append(r["reservation_date"])
+
+    #             if tempId == 0:
+    #                 tempId = r["cars_id"]
+    #                 dateRow.append(r["reservation_date"])
+    #             # print("Count: " + str(count) + ", rows lengte: " + str(len(rows)))
+    #             if count == len(rows):
+    #                 dates.append(dateRow)
+    #                 carIds.append(r["cars_id"])
+    #                 tempId = 0
+    # print(carIds, dates)
+
+    # string = ""
+    # for reservationDates in reservationDates:
+    #     string = string + str(reservationDates)
+        
+    #     print(reservationDates)
+    #     disabledDaysd[f"car{reservationDates['cars_id']}"] = reservationDates['reservation_date'].split(' ')[0]
+    # print(string, "sdsd")
+    # string = string.split("{")
+    # print(str(string))
+
+    car['photo'] = base64.b64encode(
+        car['photo']).decode('ascii')
     reservation['user_photo'] = base64.b64encode(
         reservation['user_photo']).decode('ascii')
     reservation['photo'] = base64.b64encode(
         reservation['photo']).decode('ascii')
-    return render_template('reservation.html', reservation=reservation, logged=logged)
+    print(cars, "cars")
+    return render_template('reservation.html', reservation=reservation, ids=ids, car_date=car_date, reservationDates=disabledDaysd, dates=dates, logged=logged, cars=cars1, car=car, disabledDays=disabledDays)
     # return jsonify(reservation)
 
 
@@ -200,17 +288,21 @@ def reserveID(car_id):
     reservations = DB.all(
         'SELECT reservation_date FROM reservations WHERE cars_id = :car_id AND reservation_date > DATE()', {"car_id": car_id})
     print(reservations, "reservations")
+    reservationDates = DB.all(
+        'SELECT reservation_date, reservations.id, cars_id FROM reservations WHERE reservation_date > DATE() GROUP BY cars_id, reservation_date')
+
     disabledDays = []
     for reservation in reservations:
 
         disabledDays.append(reservation['reservation_date'].split(' ')[0])
+
     print(disabledDays)
     today = date.today() + timedelta(days=1)
     end_date = date.today() + timedelta(days=41)
     dates = {'today': today, 'max': end_date}
 
     car['photo'] = base64.b64encode(car['photo']).decode('ascii')
-    return render_template("carReserve.html", dates=dates, logged=logged, disabledDays=disabledDays, car=car)
+    return render_template("carReserve.html", dates=dates, logged=logged, reservationDates=reservationDates, disabledDays=disabledDays, car=car)
 
 
 @app.route('/reservations/<int:reservation_id>/changes', methods=['POST'])

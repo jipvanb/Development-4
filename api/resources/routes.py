@@ -28,7 +28,7 @@ def home():
 
         print(logged['id'], "me")
         args = {"id": logged['id']}
-        qryR = ''' SELECT  photo, customer_id, reservation_date, date_of_reservation, cars.id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id WHERE customer_id = :id LIMIT 4'''
+        qryR = ''' SELECT  photo, customer_id, reservation_date, date_of_reservation, cars.id, reservations.id as reservation_id, year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id WHERE customer_id = :id LIMIT 4'''
         reservations = DB.all(qryR, args)
         # check how many reservations a user has
         qry = '''SELECT COUNT(*) AS count FROM reservations WHERE customer_id = :id'''

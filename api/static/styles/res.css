@@ -7,7 +7,7 @@
   .car {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.2fr 0.2fr 0.2fr;
+    
     justify-content: center;
     align-items: center;
   }
@@ -116,7 +116,7 @@
     pointer-events: none;
   }
   #start {
-    width: 30%;
+    width: 100%;
     height: 75px;
     border: 3px solid black;
     border-radius: 25px;
@@ -174,10 +174,9 @@
     color: blue;
   }
   .return {
-    grid-column: 1;
-    grid-row: 4;
-    display: none;
-    transition: 2s;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
   }
   .specifications {
     grid-row: 3;
@@ -192,11 +191,12 @@
     /* increase checkbox size */
     width: 30px;
     height: 30px;
+    color: black;
   }
   #pickupL {
     
     font-size: 2rem;
-    color: white;
+    color: black;
   }
   #adress {
     
@@ -231,4 +231,120 @@
         
     }
 
+    #editB {
+      display: block;
+      margin: auto;
+      background-color: rgb(255, 255, 255);
+      color: rgb(0, 0, 0);
+      border-radius: 25px;
+      width: 30%;
+      padding: 10px;
+      font-size: 2rem;
+    }
+
+    #editTable, #editH1{
+      display: block;
+    }
+    .input input {
+      grid-column: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid black;
+      border-radius: 0 0.5rem 0.5rem 0;
+      background: none;
+      outline: none;
+      padding: 1.25rem;
+      
+      font-size: 1.5rem;
+    }
+    .input input {
+      box-shadow: 0 4px 4px #00000057;
+    }
+    .input input:hover {
+      border-color: rgb(188, 30, 6);
+      transition: 0.4s;
+    }
     
+    form {
+      margin-top: 5vh;
+      display: grid;
+      grid-template-rows: 0.3fr 1fr auto;
+      row-gap: 2vh;
+      width: 100%;
+      height: fit-content;
+    }
+    .input input:focus {
+      border-color: rgb(40, 152, 243);
+      box-shadow: inset 0 8px 8px #00000057;
+      transition: 0.4s;
+    }
+    .input span, .select span {
+      grid-column: 1;
+      height: 100%;
+      line-height: 60px;
+      transform: translateX(1%);
+      vertical-align: middle;
+      padding-right: 15px;
+      text-align: center;
+      align-items: center;
+      top: 1.1rem;
+      padding: 0 0.5rem;
+      color: rgb(255, 255, 255);
+      cursor: text;
+      background-color: black;
+      font-size: 1.4rem;
+    }
+    
+    .input input:focus ~ .input span {
+      color: white;
+    }
+    #sub {
+        grid-column: 1/3;
+    }
+    
+    .select {
+        display: grid;
+        grid-template-columns:1fr 0.05fr;
+        align-items: center;
+        box-shadow:0 4px 4px #00000057;
+    }
+    .select select {
+        background-color: white;
+        color: black;
+        text-align: center;
+        font-size: 1.4rem;
+        height: 100%;
+        
+        border: 3px solid black;
+        appearance: none;
+        background: none;
+        outline: none;
+    }
+    .select select:focus {
+        background-color:rgb(27, 25, 25);
+        color: white;
+        border-color: rgb(40, 152, 243);
+       
+    
+    }
+    .select select:hover {
+        border-color: rgb(188, 30, 6);
+        transition: 0.4s;
+      }
+    
+    .select select option{
+        background-color: rgb(27, 25, 25);
+        color: white;
+        
+        margin-top: 0.5rem;
+    }
+    #dropdown {
+        grid-column: 2;
+        height: 7vh;
+        background-color: black;
+        
+    }
+     
