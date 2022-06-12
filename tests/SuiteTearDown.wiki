@@ -1,0 +1,6 @@
+!3 The SuiteTearDown is run at the end of any Suite 
+
+!4 Stop the selenium driver (and therefore, close the browser window)
+
+|script|selenium driver setup|
+|stop driver                 |
