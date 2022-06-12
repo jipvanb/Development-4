@@ -10,13 +10,10 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/reservations.css') }}">
-        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/reservations.css') }}">
     </head>
-    
     <body>
         <div class="container2">
           <nav class="header">
@@ -73,66 +70,64 @@
           <div id="carPage" class="car-page">
             {% for reservation in reservations%}
             <a style="background-color: {{ reservation.color }};" href="/reservations/{{reservation.reservation_id}}">
-            <div class="car">
-            
-            <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
-            <p id="type">at {{reservation.reservation_date}}</p>
-            
-            <p id="type3">{{reservation.car_name}}</p>
-            <img class="user-picture"src="data:image/png;base64,{{ reservation.user_photo }}">
-            <div class="imgDiv">
-            <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
-            </div>
-            <button id="more1" class="more1">Show</button>
-            </div>
+                <div class="car">
+                    <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
+                    <p id="type">at {{reservation.reservation_date}}</p>
+                    <p id="type3">{{reservation.car_name}}</p>
+                    <img class="user-picture" src="data:image/png;base64,{{ reservation.user_photo }}">
+                    <div class="imgDiv">
+                        <img class="car-picture" src="data:image/png;base64,{{reservation.photo}}">
+                    </div>
+                    <button id="more1" class="more1">Show</button>
+                </div>
             </a>
             {% endfor %}
-          </div>
-          {% if cancelled%}
-          <h1>Recently cancelled reservations</h1>
-          <div class="car-page">
+        </div>
+        {% if cancelled%}
+        <h1>Recently cancelled reservations</h1>
+        <div class="car-page">
             {% for reservation in cancelled%}
             <a style="background-color: {{ reservation.color }};">
-            <div class="car">
-            
-            <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
-            <p id="type">Cancelled at {{reservation.time_of_deletion}}</p>
-            
-            <p id="type3">{{reservation.car_name}}</p>
-            <img class="user-picture"src="data:image/png;base64,{{ reservation.user_photo }}">
-            <div class="imgDiv">
-            <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
-            </div>
-            <form action="/reservations/{{reservation.reservation_id}}" method="post">
-            <input style="display:none" type="text" value="1" name="undo">
-            <button type="submit" class="more">Undo</button></form>
-            </div>
+                <div class="car">
+                    <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
+                    <p id="type">Cancelled at {{reservation.time_of_deletion}}</p>
+                    <p id="type3">{{reservation.car_name}}</p>
+                    <img class="user-picture" src="data:image/png;base64,{{ reservation.user_photo }}">
+                    <div class="imgDiv">
+                        <img class="car-picture" src="data:image/png;base64,{{reservation.photo}}">
+                    </div>
+                    <form action="/reservations/{{reservation.reservation_id}}" method="post">
+                        <input
+                            style="display:none"
+                            type="text"
+                            value="1"
+                            name="undo"
+                        >
+                        <button type="submit" class="more">Undo</button>
+                    </form>
+                </div>
             </a>
             {% endfor %}
-          </div>
-          {% endif %}
-          <h1>Past reservations</h1>
-          <div class="car-page">
+        </div>
+        {% endif %}
+        <h1>Past reservations</h1>
+        <div class="car-page">
             {% for reservation in reservationsP%}
             <a style="background-color: {{ reservation.color }};" href="/reservations/{{reservation.reservation_id}}">
-              <div class="car">
-              
-              <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
-              <p id="type">at {{reservation.reservation_date}}</p>
-              
-              <p id="type3">{{reservation.car_name}}</p>
-              <img class="user-picture"src="data:image/png;base64,{{ reservation.user_photo }}">
-              <div class="imgDiv">
-              <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
-              </div>
-              <button id="more1" class="more1">Show</button>
-              </div>
-              </a>
+                <div class="car">
+                    <h1 id="firstName">Reservation ID# {{reservation.reservation_id}}</h1>
+                    <p id="type">at {{reservation.reservation_date}}</p>
+                    <p id="type3">{{reservation.car_name}}</p>
+                    <img class="user-picture" src="data:image/png;base64,{{ reservation.user_photo }}">
+                    <div class="imgDiv">
+                        <img class="car-picture" src="data:image/png;base64,{{reservation.photo}}">
+                    </div>
+                    <button id="more1" class="more1">Show</button>
+                </div>
+            </a>
             {% endfor %}
-          </div>
-            <div class="addCar">
-            </div>
-            
-           
-          </div>
-        
+        </div>
+        <div class="addCar"></div>
+    </div>
+</body>
+</html>

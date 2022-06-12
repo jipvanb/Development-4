@@ -1,4 +1,3 @@
-
 {% block content %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -12,13 +11,11 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
         <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}"> -->
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
     </head>
-    
     <body>
         <div class="container2">
             <nav class="header">
@@ -69,38 +66,46 @@
            
               </ul>
             </nav>
-          </div>
-          <div class="banner"></div>
-          <div class="pageContent">
-              <br>
-              <br><br><br>
-              {% if not logged['first_name']: %}
-              
-           
-              <div class="conduct">
-                
-              <h1>Why us?</h1> 
-              {% if logged: %}
-                  <h1>{{logged['first_name']}}</h1>
-              {% endif %}
-              <!-- werkwijze -->
-              <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
-              <h1>How does it work?</h1>
-              <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
-              <p>After picking a location, you will be able to select the date that you return the car</p>
-              <p>you can check your current reservations at any time</p>
-             <br><br><br><br><br><br>
-              <a id="start" href="/register">Get started!</a>
+        </div>
+        <div class="banner"></div>
+        <div class="pageContent">
+            <br>
+            <br>
+            <br>
+            <br>
+            {% if not logged['first_name']: %}
+            <div class="conduct">
+                <h1>Why us?</h1>
+                {% if logged: %}
+                <h1>{{logged['first_name']}}</h1>
+                {% endif %}
+                <!-- werkwijze -->
+                <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
+                <h1>How does it work?</h1>
+                <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
+                <p>After picking a location, you will be able to select the date that you return the car</p>
+                <p>you can check your current reservations at any time</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <a id="start" href="/register">Get started!</a>
             </div>
-              <div class="contact">
-          <h1>Contact</h1>
-            <p>
-                Hospitaaldreef 5<br>
-                1315 RC Almere<br>
-                06 - 00 00 00 00<br>
-                info@email.com<br>
-                <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
-            </p>
+            <div class="contact">
+                <h1>Contact</h1>
+                <p>
+                    Hospitaaldreef 5
+                    <br>
+                    1315 RC Almere
+                    <br>
+                    06 - 00 00 00 00
+                    <br>
+                    info@email.com
+                    <br>
+                    <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
+                </p>
             </div>
             {% endif %}
 
@@ -135,16 +140,23 @@
           </div>
         {% endif %}
             <div class="workers">
-        <h1>Employees</h1>
-
-        {% for users in users%}
-        <div class="worker-card">
-        <div class="worker-info">
-        <h1 id="firstName">{{users.first_name}} {{users.last_name}}</h1>
-        <p id="workerInfo">Email: {{users.email}} <br><br> Phonenumber: {{users.phone_number}}</p>
-
-        </div>
-        <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
+                <h1>Employees</h1>
+                {% for users in users%}
+                <div class="worker-card">
+                    <div class="worker-info">
+                        <h1 id="firstName">{{users.first_name}} {{users.last_name}}</h1>
+                        <p id="workerInfo">
+                            Email: {{users.email}}
+                            <br>
+                            <br>
+                            Phonenumber: {{users.phone_number}}
+                        </p>
+                    </div>
+                    <img class="worker-picture" src="data:image/png;base64,{{users.photo}}">
+                </div>
+                {% endfor %}
+                <hr style="height: 3px; width: 100%; background-color: black;">
+            </div>
         </div>
         {% endfor %}
         

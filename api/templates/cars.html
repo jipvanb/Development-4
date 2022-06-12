@@ -10,12 +10,10 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cars.css') }}">
     </head>
-    
     <body>
         <div class="container2">
           <nav class="header">
@@ -71,16 +69,15 @@
           <div class="car-page">
             {% for cars in cars%}
             <a style="background-color: {{ cars.color }};" href="/cars/{{cars.id}}">
-            <div class="car">
-            
-            <h1 id="firstName">{{cars.car_name}}</h1>
-            <p id="type">{{cars.type_name}}</p>
-            <p id="type2">{{cars.year}}</p>
-            <div class="imgDiv">
-            <img class="car-picture"src="data:image/png;base64,{{cars.photo}}">
-            </div>
-            <button class="more">Edit</button>
-            </div>
+                <div class="car">
+                    <h1 id="firstName">{{cars.car_name}}</h1>
+                    <p id="type">{{cars.type_name}}</p>
+                    <p id="type2">{{cars.year}}</p>
+                    <div class="imgDiv">
+                        <img class="car-picture" src="data:image/png;base64,{{cars.photo}}">
+                    </div>
+                    <button id="more">Edit</button>
+                </div>
             </a>
             {% endfor %}
           </div>

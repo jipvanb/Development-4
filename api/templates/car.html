@@ -10,12 +10,9 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/car.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/car.css') }}">
     </head>
-    
     <body>
         <div class="container2">
           <nav class="header">
@@ -72,138 +69,133 @@
             
            
             <div class="car">
-            <div class="specifications">
-               
-                <table id="options">
-                  <h1 style="text-align:center">Options:</h1>
-                    <colgroup>
-                    <col style="width: 260px">
-                    <col style="width: 290px">
-                    </colgroup>
-                    
-                    
-                    <tbody>
-                        <tr>
-                          <td>Car name</td>
-                          <td><input value="{{car.car_name}}" type="text"></td>
-                          <td><button class="plus">+</button></td>
-                        </tr>
-                      
-                    </tbody>
+                <div class="specifications">
+                    <table id="options">
+                        <h1 style="text-align:center">Options:</h1>
+                        <colgroup>
+                            <col style="width: 260px">
+                            <col style="width: 290px">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>Car name</td>
+                                <td>
+                                    <input value="{{car.car_name}}" type="text">
+                                </td>
+                                <td>
+                                    <button class="plus">+</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     <button id="updateOptions" onclick="updateOptions()"> Update options</button>
-               
-                  </div>
-                    <div class="reserve">
-                     
-                       <button  id="reserve">Delete {{car.car_name}}</button>
-                       <h1 style="font-size:1.5rem">Put this car up for deletion. The current reservations will still be available. <br> However the reservation of this car will be disabled. And after the last reservation has passed the car will be deleted</h1>
-           <div id="returnDiv"class="return">
-            <button id="reserve">Delete</button>
-           </div>
-          </div>
-          <div class="imgdiv">
-           <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{car.car_name}}</h1>
-            <br><br>
-            <img class="car-picture"src="data:image/png;base64,{{car.photo}}">
-            <br><br>
-          </div>
+                </div>
+                <div class="reserve">
+                    <button id="reserve">Delete {{car.car_name}}</button>
+                    <h1 style="font-size:1.5rem">
+                        Put this car up for deletion. The current reservations will still be available.
+                        <br>
+                        However the reservation of this car will be disabled. And after the last reservation has passed the car will be deleted
+                    </h1>
+                    <div id="returnDiv" class="return">
+                        <button id="reserve">Delete</button>
+                    </div>
+                </div>
+                <div class="imgdiv">
+                    <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{car.car_name}}</h1>
+                    <br>
+                    <br>
+                    <img class="car-picture" src="data:image/png;base64,{{car.photo}}">
+                    <br>
+                    <br>
+                </div>
             </div>
-            </a>
-           <p id="car_idd" style="display: none;">{{car.id}}</p>
-          </div>
-          <script>
-            let delB = document.getElementById('reserve')
-            let car_id = document.getElementById('car_idd').textContent
-            delB.addEventListener('click', () => fetch(`http://127.0.0.1:5000/cars/${car_id}`, {
-  method: 'PATCH',
-})
-.then(res => res.text()) // or res.json()
-.then(res => console.log(res)))
-              
-//function that updates every second
+        </a>
+        <p id="car_idd" style="display: none;">{{car.id}}</p>
+    </div>
+    <script>
+      let delB = document.getElementById('reserve');
+      let car_id = document.getElementById('car_idd').textContent;
+      delB.addEventListener('click', () =>
+        fetch(`http://127.0.0.1:5000/cars/${car_id}`, {
+          method: 'PATCH',
+        })
+          .then((res) => res.text()) // or res.json()
+          .then((res) => console.log(res))
+      );
 
+      //function that updates every second
 
-            function maps(){
-                let link = document.getElementById('link').value
-                console.log(link)
-                console.log(typeof(link))
-                window.open(link)
-            }
-            let rowNumber = 1
-            // get id of plus
-            let plus = document.getElementsByClassName('plus')
-            console.log(plus.length)
-            
-            for(let i = 0; i < plus.length; i++){
-              console.log("sdasd")
-              plus = document.getElementsByClassName('plus')
-                plus[i].addEventListener('click', () => {
-                    // get the table
-                    console.log(i, plus[i])
-                    let table = document.getElementById('options')
-                let row = table.insertRow(-1)
-                let cell1 = row.insertCell(0)
-                let cell2 = row.insertCell(1)
-                let cell3 = row.insertCell(2)
-                let cell4 = row.insertCell(3)
-                cell1.innerHTML = `<input  id="i1.${rowNumber}" data-sort="key" data-index="i1.${rowNumber}" onchange="changeName(this)" type="text">`
-                cell2.innerHTML = `<input id="i2.${rowNumber}"  data-sort="value" data-index="i2.${rowNumber}" type="text">`
-                cell3.innerHTML = `<button value="${rowNumber}" onclick="removeOption(this)" class="minus">-</button>`
-                cell4.innerHTML = `<button value="${rowNumber}" onclick="addOption()" class="plus">+</button>`
-                rowNumber++
-                
-                })
-                plus = document.getElementsByClassName('plus')
-                console.log(plus)
-                }
+      function maps() {
+        let link = document.getElementById('link').value;
+        console.log(link);
+        console.log(typeof link);
+        window.open(link);
+      }
+      let rowNumber = 1;
+      // get id of plus
+      let plus = document.getElementsByClassName('plus');
+      console.log(plus.length);
 
-            
-            function addOption() {
-              let table = document.getElementById('options')
-                let row = table.insertRow(-1)
-                let cell1 = row.insertCell(0)
-                let cell2 = row.insertCell(1)
-                let cell3 = row.insertCell(2)
-                let cell4 = row.insertCell(3)
-                cell1.innerHTML = `<input  id="i1.${rowNumber}" data-sort="key" data-index="i1.${rowNumber}" onchange="changeName(this)" type="text">`
-                cell2.innerHTML = `<input id="i2.${rowNumber}"  data-sort="value" data-index="i2.${rowNumber}" type="text">`
-                cell3.innerHTML = `<button value="${rowNumber}" onclick="removeOption(this)" class="minus">-</button>`
-                cell4.innerHTML = `<button value="${rowNumber}" onclick="addOption()" class="plus">+</button>`
-                rowNumber++
-            }
-            function removeOption(r) {
-          var i = r.parentNode.parentNode.rowIndex;
-  document.getElementById("options").deleteRow(i);
-}
+      for (let i = 0; i < plus.length; i++) {
+        console.log('sdasd');
+        plus = document.getElementsByClassName('plus');
+        plus[i].addEventListener('click', () => {
+          // get the table
+          console.log(i, plus[i]);
+          let table = document.getElementById('options');
+          let row = table.insertRow(-1);
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          let cell4 = row.insertCell(3);
+          cell1.innerHTML = `<input  id="i1.${rowNumber}" data-sort="key" data-index="i1.${rowNumber}" onchange="changeName(this)" type="text">`;
+          cell2.innerHTML = `<input id="i2.${rowNumber}"  data-sort="value" data-index="i2.${rowNumber}" type="text">`;
+          cell3.innerHTML = `<button value="${rowNumber}" onclick="removeOption(this)" class="minus">-</button>`;
+          cell4.innerHTML = `<button value="${rowNumber}" onclick="addOption()" class="plus">+</button>`;
+          rowNumber++;
+        });
+        plus = document.getElementsByClassName('plus');
+        console.log(plus);
+      }
 
-          function changeName(i){
-             
-              let name = i.dataset.index
-              console.log(name)
-              keyInput = name.split('.')[1]
-              console.log(keyInput, "split")
-              keyInput = 'i2.' + keyInput
-              console.log(keyInput, "keyInput", i)
-              let secondInput = document.getElementById(`${keyInput}`)
-              secondInput.setAttribute('name', i.value)
-          }
+      function addOption() {
+        let table = document.getElementById('options');
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        cell1.innerHTML = `<input  id="i1.${rowNumber}" data-sort="key" data-index="i1.${rowNumber}" onchange="changeName(this)" type="text">`;
+        cell2.innerHTML = `<input id="i2.${rowNumber}"  data-sort="value" data-index="i2.${rowNumber}" type="text">`;
+        cell3.innerHTML = `<button value="${rowNumber}" onclick="removeOption(this)" class="minus">-</button>`;
+        cell4.innerHTML = `<button value="${rowNumber}" onclick="addOption()" class="plus">+</button>`;
+        rowNumber++;
+      }
+      function removeOption(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById('options').deleteRow(i);
+      }
 
-          function updateOptions(){
-            
-            let data = new FormData()
-            // select every element with dataset sort == value
-            let inputs = document.getElementsByTagName('input')
-            for(let i = 0; i < inputs.length; i++){
+      function changeName(i) {
+        let name = i.dataset.index;
+        console.log(name);
+        keyInput = name.split('.')[1];
+        console.log(keyInput, 'split');
+        keyInput = 'i2.' + keyInput;
+        console.log(keyInput, 'keyInput', i);
+        let secondInput = document.getElementById(`${keyInput}`);
+        secondInput.setAttribute('name', i.value);
+      }
 
-              if(inputs[i].dataset.sort === 'value'){
-                console.log(inputs[i].name, inputs[i].value)
-                data.append(inputs[i].name, inputs[i].value)
-              }
-            }
-            fetch(`http://localhost:5000/cars/${car_id}/options`, { method: 'PATCH', body: data })
-            .then(res => res.text())
-            .then(res => console.log(res))
+      function updateOptions() {
+        let data = new FormData();
+        // select every element with dataset sort == value
+        let inputs = document.getElementsByTagName('input');
+        for (let i = 0; i < inputs.length; i++) {
+          if (inputs[i].dataset.sort === 'value') {
+            console.log(inputs[i].name, inputs[i].value);
+            data.append(inputs[i].name, inputs[i].value);
           }
 
 

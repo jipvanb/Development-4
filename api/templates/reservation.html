@@ -12,12 +12,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-       
-        
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/res.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/res.css') }}">
     </head>
-    
     <body>
         <div class="container2">
           <nav class="header">
@@ -114,73 +111,14 @@
                       
                     </tbody>
                     </table>
-                  </form>
-                  <form action="/reservations/{{reservation.reservation_id}}/edit" method="post">
-                  <table id="editTable">
-                    <h1 id="editH1" style="text-align:center">Reservation details:</h1>
-                      <colgroup>
-                      <col style="width: 260px">
-                      <col style="width: 290px">
-                      </colgroup>
-                      
-                      
-                      <tbody>
-                        <tr>
-                          <td>Car</td>
-                          <td><div class="select">
-                            
-                            <select id="car_id" name="car_id" class="registerIN">
-                                {% for item in cars: %}
-                                 
-            
-                                <option id="{{ item.id }} {{ item.name}}" value="{{ item.id }}">{{ item.name }}</option>
-                                  {% endfor %}
-                    
-                              </select>
-                              <img id="dropdown" src="{{ url_for('static',filename='images/dropdown.png') }}" alt="" />
-                            </div></td>
-                        </tr>
-                        <tr>
-                          <td>Reservation date</td>
-                          <td><label id="startLabel" class="return-date" for="dates">Select reservation date:</label>
-                            <input type="datetime-local" id="start" name="start_date"
-                                daata-maxDate="{{dates['max']}}"
-                                data-disabledDates="{{disabledDays}}"
-                                min="{{dates['today']}}T08:00"
-                                max="{{dates['max']}}T20:00" ></td>
-                        </tr>
-                        <tr>
-                          <td>Current reservation date</td>
-                          <td id="resDate">{{reservation.reservation_date}}</td>
-                        </tr>
-                        <tr>
-                          <td>Pick up options</td>
-                          <td id="resDate"> <div class="checks">
-                            <input id="pickup" type="checkbox" name="pickup" value="1" >
-                            <label id="pickupL" style="color: black;"for="pickup">Pick me up</label>
-                            <label id="adressL" style="color: black;"for="address">  | Address:</label>
-                            <input id="adress" placeholder=" Kimwierde 93"type="text" name="address" >
-                          </div></td>
-                        </tr>
-                        <tr>
-                          <td>Change reservation</td>
-                          <td>
-                            <input style="display:none" type="text" name="change" value="change" id="change">
-                            <button data-id="{{reservation.reservation_id}}" id="changeButton" type="submit">Change reservation</button>
-                          </form>
-                        </td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
                 </div>
-                
                 <div class="imgdiv">
-                  <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{reservation.car_name}}</h1>
-                  <br><br>
-                  <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
-                  <br><br>
-                  </div>
+                    <h1 style="text-align: center; font-size:4vh; padding-top:3vh;"> {{reservation.car_name}}</h1>
+                    <br>
+                    <br>
+                    <img class="car-picture" src="data:image/png;base64,{{reservation.photo}}">
+                    <br>
+                    <br>
                 </div>
               </div>
             </a>
@@ -257,80 +195,128 @@
             });
 
 
-           
+disabledDays = disabledDays.split("'");
+let days = [];
+disabledDays.forEach((day) => {
+  if (day.length > 2) {
+    days.push(day);
+  }
+});
+// change event listener for car_id
+//add event listner change for car_id
+let cal = flatpickr('input[type=datetime-local]', {
+  enableTime: true,
+  dateFormat: 'Y-m-d H:i',
+  minDate: '2022-06-02',
+  maxDate: maxDate,
+  time_24hr: true,
+  minTime: '08:00',
+  maxTime: '20:00',
+  disable: days,
+  altFormat: '',
+});
+document.getElementById('car_id').addEventListener('change', function () {
+  let test = document.getElementById('test');
+  let carOutput = document.getElementById('car_id').value;
+  test.textContent = `cars${carOutput}`;
+  let element = `cars${carOutput}`;
+  console.log(document.getElementById(element));
+  let disabled_date = document.getElementById(element).textContent;
+  disabled_date = disabled_date.split('_')[1];
+  if (disabled_date.length === 0) {
+    alert('no resrevations');
+  } else {
+    disabled_date = disabled_date.replace(/'/g, '"');
+    console.log(disabled_date);
+    disabled_date = `${disabled_date}`;
 
+    const text = disabled_date;
+    disabled_date = JSON.parse(text);
+    cal.destroy();
+    cal = flatpickr('input[type=datetime-local]', {
+      enableTime: true,
+      dateFormat: 'Y-m-d H:i',
+      minDate: '2022-06-02',
+      maxDate: maxDate,
+      time_24hr: true,
+      minTime: '08:00',
+      maxTime: '20:00',
+      disable: disabled_date,
+      altFormat: '',
+    });
+  }
+});
 
+//  let cal = flatpickr("input[type=datetime-local]", {
+//                   enableTime: true,
+//                   dateFormat: "Y-m-d H:i",
+//                   minDate: "2022-06-02",
+//                   maxDate: maxDate,
+//                   time_24hr: true,
+//                   minTime: "08:00",
+//                   maxTime: "20:00",
+//                   disable: days,
+//                   altFormat: "",
 
+//                 });
 
-        //  let cal = flatpickr("input[type=datetime-local]", {
-        //                   enableTime: true,
-        //                   dateFormat: "Y-m-d H:i",
-        //                   minDate: "2022-06-02",
-        //                   maxDate: maxDate,
-        //                   time_24hr: true,
-        //                   minTime: "08:00",
-        //                   maxTime: "20:00",
-        //                   disable: days,
-        //                   altFormat: "",
-                          
-        //                 }); 
-            
-            // flatpickr("input[type=datetime-local]", config); 
+// flatpickr("input[type=datetime-local]", config);
 
-        
-            document.getElementById('b').addEventListener('click', function() {
-            days = ['2022-06-17']
-            cal.destroy()
-            cal = flatpickr("input[type=datetime-local]", {
-                          enableTime: true,
-                          dateFormat: "Y-m-d H:i",
-                          minDate: "2022-06-02",
-                          maxDate: maxDate,
-                          time_24hr: true,
-                          minTime: "08:00",
-                          maxTime: "20:00",
-                          disable: days,
-                          altFormat: "",
-                          
-                        });
-          })
+document.getElementById('b').addEventListener('click', function () {
+  days = ['2022-06-17'];
+  cal.destroy();
+  cal = flatpickr('input[type=datetime-local]', {
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i',
+    minDate: '2022-06-02',
+    maxDate: maxDate,
+    time_24hr: true,
+    minTime: '08:00',
+    maxTime: '20:00',
+    disable: days,
+    altFormat: '',
+  });
+});
 
-document.getElementById('o').addEventListener('click', function() {
-days = ['2022-06-16']
-})
+document.getElementById('o').addEventListener('click', function () {
+  days = ['2022-06-16'];
+});
 
-            delB = document.getElementById("delButton"); 
-            car_id = delB.dataset.id;
-            ///reservations/{{reservation.reservation_id}}/changes
-             delB.addEventListener('click', () => fetch(`http://127.0.0.1:5000/cars/${car_id}`, {
-              method: 'post',
-            })
-            .then(res => res.text()) // or res.json()
-            .then(res => console.log(res)))
+delB = document.getElementById('delButton');
+car_id = delB.dataset.id;
+///reservations/{{reservation.reservation_id}}/changes
+delB.addEventListener('click', () =>
+  fetch(`http://127.0.0.1:5000/cars/${car_id}`, {
+    method: 'post',
+  })
+    .then((res) => res.text()) // or res.json()
+    .then((res) => console.log(res))
+);
 
-            //start on change event listner
-            start = document.getElementById("start");
-            resDate = document.getElementById("resDate");
-            start.addEventListener('change', () => {
-              let startDate = start.value;
-              console.log(startDate)
-              resDate.textContent = startDate;
-            })
+//start on change event listner
+start = document.getElementById('start');
+resDate = document.getElementById('resDate');
+start.addEventListener('change', () => {
+  let startDate = start.value;
+  console.log(startDate);
+  resDate.textContent = startDate;
+});
 
-            let checkbox = document.getElementById('pickup')
-        checkbox.addEventListener('change', function(){
-          //check if checkbox is checked
-          if(checkbox.checked){
-            //if checked, show the return date
-            console.log('checked')
-            document.getElementById('adress').style.display = 'inline-block'
-            document.getElementById('adressL').style.display = 'inline-block'
-          }
-          else{
-            //if not checked, hide the return date
-            console.log('not checked')
-            document.getElementById('adress').style.display = 'none'
-            document.getElementById('adressL').style.display = 'none'
-          }
-        })
-          </script>
+let checkbox = document.getElementById('pickup');
+checkbox.addEventListener('change', function () {
+  //check if checkbox is checked
+  if (checkbox.checked) {
+    //if checked, show the return date
+    console.log('checked');
+    document.getElementById('adress').style.display = 'inline-block';
+    document.getElementById('adressL').style.display = 'inline-block';
+  } else {
+    //if not checked, hide the return date
+    console.log('not checked');
+    document.getElementById('adress').style.display = 'none';
+    document.getElementById('adressL').style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>

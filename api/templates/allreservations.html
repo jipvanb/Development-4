@@ -10,12 +10,10 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cars.css') }}">
     </head>
-    
     <body>
         <div class="container2">
             <nav class="header">
@@ -85,9 +83,6 @@
             </div>
             </a>
             {% endfor %}
-          </div>
-            <div class="addCar">
-            </div>
-            
-           
-          </div>
+        </div>
+        <div class="addCar"></div>
+    </div>
