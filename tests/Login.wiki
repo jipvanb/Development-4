@@ -2,11 +2,10 @@
 Test
 ---
 |script|browser test                            |
-|open  |http://localhost:5000/                  |
+|open  |http://127.0.0.1:5000/                  |
 |click |Log in                                  |
 |enter |sheldonJames@hotmail.com|as|id=email2   |
 |enter |a                       |as|id=password2|
 |show  |take screenshot         |loginpage      |
 |click |Login                                   |
-|open  |http://localhost:5000/                  |
 |show  |take screenshot         |loggedin       |
