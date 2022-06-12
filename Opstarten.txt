@@ -1,0 +1,10 @@
+Om de website op te starten doe je in de console de volgende commandos:
+cd api
+.\venv\Scripts\activate
+python -m flask run
+
+als het goed is wordt de website nu opgestart op localhost:5000.
+op de website kan een gebruikers account worden aangemaakt bij het registreren.
+er kan ook worden ingelogd met een medewerkers account.
+1 van de medewerkers accounts is "sheldonJames@hotmail.com" met als wachtwoord "a"
+als medewerker heb je meer opties om de website te beheren.
