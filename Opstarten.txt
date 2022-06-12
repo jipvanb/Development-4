@@ -1,6 +1,7 @@
 Om de website op te starten doe je in de console de volgende commandos:
 cd api
 .\venv\Scripts\activate
+(als dit niet werkt, controleer of in de bestanden "./venv/scripts/activate", "./venv/scripts/activate.bat" en "./venv/pyvenv.cfg" de juiste path en user staan ingesteld)
 python -m flask run
 
 als het goed is wordt de website nu opgestart op localhost:5000.
