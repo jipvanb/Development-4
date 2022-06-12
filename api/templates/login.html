@@ -1,19 +1,31 @@
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
 <div class="container page" id="loginPage">
-  <form action="/auth" method="POST">
-  <div class="input">
-    <span class="label">E-mail:</span>
-    <input class="inputclass" type="text" name="email" id="email2" />
-  </div>
-  <div class="input">
-    <span class="label">Password:</span>
-    <input class="inputclass" type="password" name="password" id="password2" />
-  </div>
-  <div class="input">
-    <button type="submit" class="buttonclass" id="login">Login</button>
-  </div>
-  </form>
-  <p class="loginText"> Don't have an account yet? <a href="/register">Register</a> </p>
+    <form action="/auth" method="POST">
+        <div class="input">
+            <span class="label">E-mail:</span>
+            <input
+                class="inputclass"
+                type="text"
+                name="email"
+                id="email2"
+            >
+        </div>
+        <div class="input">
+            <span class="label">Password:</span>
+            <input
+                class="inputclass"
+                type="password"
+                name="password"
+                id="password2"
+            >
+        </div>
+        <div class="input">
+            <button type="submit" class="buttonclass" id="login">Login</button>
+        </div>
+    </form>
+    <p class="loginText"> Don't have an account yet?
+        <a href="/register">Register</a>
+    </p>
 </div>
 <script src="{{ url_for('static',filename='js/main.js') }}"></script>

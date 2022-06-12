@@ -1,4 +1,3 @@
-
 {% block content %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -12,148 +11,153 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/header.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
         <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}"> -->
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
     </head>
-    
     <body>
         <div class="container2">
             <nav class="header">
-              <ul class="">
-                
-                <li>
-                  <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
-                </li>
-                <li>
-                  <a class="" href="/">Home</a>
-                </li>
-                
-                
-                {% if not logged['user_role_id'] == 2: %}
-                <li class="">
-                  <a class="" href="/reserve">Reserve</a>
-                </li>
-              {% endif %}
-                {% if logged['user_role_id'] == 2: %}
-                <li class="">
-                  <a class="" href="/cars">Cars</a>
-                </li>
-                {% endif %}
-                <li class="">
-                  <a class="" href="/locations">Pick up locations</a>
-                </li>
-               
-                {% if logged['user_role_id'] == 1: %}
-                <li class="">
-                  <a class="" href="/reservations">My reservations</a>
-                </li>
-                {% endif %}
-                {% if logged['user_role_id'] == 2: %}
-                <li class="">
-                  <a class="" href="/allreservations">Reservations</a>
-                </li>
-                {% endif %}
+                <ul class="">
+                    <li>
+                        <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="">
+                    </li>
+                    <li>
+                        <a class="" href="/">Home</a>
+                    </li>
+                    {% if not logged['user_role_id'] == 2: %}
+                    <li class="">
+                        <a class="" href="/reserve">Reserve</a>
+                    </li>
+                    {% endif %}
+                    {% if logged['user_role_id'] == 2: %}
+                    <li class="">
+                        <a class="" href="/cars">Cars</a>
+                    </li>
+                    {% endif %}
+                    <li class="">
+                        <a class="" href="/locations">Pick up locations</a>
+                    </li>
+                    {% if logged['user_role_id'] == 1: %}
+                    <li class="">
+                        <a class="" href="/reservations">My reservations</a>
+                    </li>
+                    {% endif %}
+                    {% if logged['user_role_id'] == 2: %}
+                    <li class="">
+                        <a class="" href="/allreservations">Reservations</a>
+                    </li>
+                    {% endif %}
 
-                {% if not logged['first_name']: %}
-                <li id="outBut">
-                  <a class="" href="/login">Log in</a>
-                </li>
-                {% endif %}
-                {% if logged['first_name']: %}
-                  
-                <li id="outBut">
-                  <a class="" href="/log-out">Log out</a>
-                </li>
-                {% endif %}
-           
-              </ul>
+                    {% if not logged['first_name']: %}
+                    <li id="outBut">
+                        <a class="" href="/login">Log in</a>
+                    </li>
+                    {% endif %}
+                    {% if logged['first_name']: %}
+                    <li id="outBut">
+                        <a class="" href="/log-out">Log out</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </nav>
-          </div>
-          <div class="banner"></div>
-          <div class="pageContent">
-              <br>
-              <br><br><br>
-              {% if not logged['first_name']: %}
-              
-           
-              <div class="conduct">
-                
-              <h1>Why us?</h1> 
-              {% if logged: %}
-                  <h1>{{logged['first_name']}}</h1>
-              {% endif %}
-              <!-- werkwijze -->
-              <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
-              <h1>How does it work?</h1>
-              <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
-              <p>After picking a location, you will be able to select the date that you return the car</p>
-              <p>you can check your current reservations at any time</p>
-             <br><br><br><br><br><br>
-              <a id="start" href="/register">Get started!</a>
+        </div>
+        <div class="banner"></div>
+        <div class="pageContent">
+            <br>
+            <br>
+            <br>
+            <br>
+            {% if not logged['first_name']: %}
+            <div class="conduct">
+                <h1>Why us?</h1>
+                {% if logged: %}
+                <h1>{{logged['first_name']}}</h1>
+                {% endif %}
+                <!-- werkwijze -->
+                <p>Here at Car Rental™ we find it very important that you get to the place you want to be in time, at your own comfort. Which is why we at Car Rental provide flexible pickup hours and we can even deliver it right to your doorstep.</p>
+                <h1>How does it work?</h1>
+                <p>First you register an account so you can start with making reservations for cars! After registering you will be able to look up cars that you would like to rent. When you are done choosing the care of ur liking, you can reserve the car and choose a pick up location near you.</p>
+                <p>After picking a location, you will be able to select the date that you return the car</p>
+                <p>you can check your current reservations at any time</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <a id="start" href="/register">Get started!</a>
             </div>
-              <div class="contact">
-          <h1>Contact</h1>
-            <p>
-                Hospitaaldreef 5<br>
-                1315 RC Almere<br>
-                06 - 00 00 00 00<br>
-                info@email.com<br>
-                <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
-            </p>
+            <div class="contact">
+                <h1>Contact</h1>
+                <p>
+                    Hospitaaldreef 5
+                    <br>
+                    1315 RC Almere
+                    <br>
+                    06 - 00 00 00 00
+                    <br>
+                    info@email.com
+                    <br>
+                    <a href="http://127.0.0.1:5000" style="color: black">http://127.0.0.1:5000</a>
+                </p>
             </div>
             {% endif %}
 
             {% if logged: %}
             <div id="loggedDiv">
-            
-            <h1>Current Reservations ({{count}}): <a href="/reservations">Show All</a></h1>
-            <div class="car-page">
-            {% for reservation in reservations:%}
-            
-            <a id="a" style="background-color: {{ reservation.color }}" href="/reservations/{{reservation.reservation_id}}">
-              <div style="background-color: {{ reservation.color }}" class="car">
-              
-              <h1 id="firstName">{{reservation.car_name}}</h1>
-              <p id="type">{{reservation.type_name}}</p>
-              <p id="type2">{{reservation.year}}</p>
-              <p id="type3">Reservation date: {{reservation.reservation_date}}</p>
-              <p id="type4">Reservation placed at: {{reservation.date_of_reservation}}</p>
-
-              <div class="imgDiv">
-              <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
-              </div>
-              <button id="more">Show</button>
-              </div>
-              </a>
-            {% endfor %}
-          </div>
-            
-            <hr style="height: 3px; background-color: black;">
-            <br><br><br>
-            <h1>Suggested cars:</h1>
-            <br><br><br>
-            <h1>Locations near you:</h1>
-          </div>
-        {% endif %}
+                <h1>
+                    Current Reservations ({{count}}):
+                    <a href="/reservations">Show All</a>
+                </h1>
+                <div class="car-page">
+                    {% for reservation in reservations:%}
+                    <a id="a" style="background-color: {{ reservation.color }}" href="/reservations/{{reservation.reservation_id}}">
+                        <div style="background-color: {{ reservation.color }}" class="car">
+                            <h1 id="firstName">{{reservation.car_name}}</h1>
+                            <p id="type">{{reservation.type_name}}</p>
+                            <p id="type2">{{reservation.year}}</p>
+                            <p id="type3">Reservation date: {{reservation.reservation_date}}</p>
+                            <p id="type4">Reservation placed at: {{reservation.date_of_reservation}}</p>
+                            <div class="imgDiv">
+                                <img class="car-picture" src="data:image/png;base64,{{reservation.photo}}">
+                            </div>
+                            <button id="more">Show</button>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <hr style="height: 3px; background-color: black;">
+                <br>
+                <br>
+                <br>
+                <h1>Suggested cars:</h1>
+                <br>
+                <br>
+                <br>
+                <h1>Locations near you:</h1>
+            </div>
+            {% endif %}
             <div class="workers">
-        <h1>Employees</h1>
-
-        {% for users in users%}
-        <div class="worker-card">
-        <div class="worker-info">
-        <h1 id="firstName">{{users.first_name}} {{users.last_name}}</h1>
-        <p id="workerInfo">Email: {{users.email}} <br><br> Phonenumber: {{users.phone_number}}</p>
-
+                <h1>Employees</h1>
+                {% for users in users%}
+                <div class="worker-card">
+                    <div class="worker-info">
+                        <h1 id="firstName">{{users.first_name}} {{users.last_name}}</h1>
+                        <p id="workerInfo">
+                            Email: {{users.email}}
+                            <br>
+                            <br>
+                            Phonenumber: {{users.phone_number}}
+                        </p>
+                    </div>
+                    <img class="worker-picture" src="data:image/png;base64,{{users.photo}}">
+                </div>
+                {% endfor %}
+                <hr style="height: 3px; width: 100%; background-color: black;">
+            </div>
         </div>
-        <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
-        </div>
-        {% endfor %}
-        <hr style="height: 3px; width: 100%; background-color: black;">
-      </div>
-       </div>
     </body>
 </html>
 {% endblock %}
