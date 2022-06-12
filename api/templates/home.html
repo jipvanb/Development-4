@@ -15,7 +15,7 @@
        
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/header.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}">
+        <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/cars.css') }}"> -->
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
     </head>
     
@@ -65,7 +65,7 @@
                 {% if logged['first_name']: %}
                   
                 <li id="outBut">
-                  <a class="" href="/logout">Log out</a>
+                  <a class="" href="/log-out">Log out</a>
                 </li>
                 {% endif %}
            
@@ -108,26 +108,30 @@
 
             {% if logged: %}
             <div id="loggedDiv">
-            <h1>{{logged['first_name']}}</h1>
-            <h1>Current Reservations:</h1>
+            
+            <h1>Current Reservations ({{count}}): <a href="/reservations">Show All</a></h1>
+            <div class="car-page">
             {% for reservation in reservations:%}
             
-            <a id="a" style="background-color: {{ reservation.color }}" href="/cars/{{reservation.id}}">
+            <a id="a" style="background-color: {{ reservation.color }}" href="/reservations/{{reservation.reservation_id}}">
               <div style="background-color: {{ reservation.color }}" class="car">
               
               <h1 id="firstName">{{reservation.car_name}}</h1>
               <p id="type">{{reservation.type_name}}</p>
               <p id="type2">{{reservation.year}}</p>
               <p id="type3">Reservation date: {{reservation.reservation_date}}</p>
-              <p id="type3">Reservation placed at: {{reservation.date_of_reservation}}</p>
+              <p id="type4">Reservation placed at: {{reservation.date_of_reservation}}</p>
 
               <div class="imgDiv">
               <img class="car-picture"src="data:image/png;base64,{{reservation.photo}}">
               </div>
-              <button id="more">+</button>
+              <button id="more">Show</button>
               </div>
               </a>
             {% endfor %}
+          </div>
+            
+            <hr style="height: 3px; background-color: black;">
             <br><br><br>
             <h1>Suggested cars:</h1>
             <br><br><br>
@@ -147,7 +151,8 @@
         <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
         </div>
         {% endfor %}
-        </div>
+        <hr style="height: 3px; width: 100%; background-color: black;">
+      </div>
        </div>
     </body>
 </html>
