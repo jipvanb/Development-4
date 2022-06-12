@@ -117,13 +117,13 @@ def update_car_options(car_id):
             qry = '''
             UPDATE cars
                 SET options = :slicedOptions
-                WHERE id = 6
+                WHERE id = :car_id
             '''
 
             DB.update(qry, req)
 
             print('auto opties geupdate van ' + str(car_id))
-            return redirect(url_for('cars'), code=301)
+            return redirect(url_for('home'), code=301)
     except Exception as error:
         return {'error': str(error)}, 400
 
