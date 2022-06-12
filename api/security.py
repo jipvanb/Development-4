@@ -37,7 +37,7 @@ def login():
             user, 'qominiqueisshitinoverwatch', algorithm='HS256')
         resp = make_response(redirect('/'))
         resp.set_cookie('access_token', access_token, expires="never")
-        return resp, 200
+        return resp, 301
     except Exception as error:
         return {'error': str(error)}, 400
 
@@ -61,6 +61,6 @@ def logout():
         print("dasdasd")
         resp = make_response(redirect(url_for('home')))
         resp.set_cookie("access_token", '', expires=0)
-        return resp, 200
+        return resp, 301
     except Exception as error:
         return {'error': str(error)}, 400
