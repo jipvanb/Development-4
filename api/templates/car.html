@@ -207,7 +207,7 @@
       alert(`${name} = ${value}`); // key1 = value1, then key2 = value2
 }
 
-            fetch(`http://localhost:5000/car/${car_id}/options`, { method: 'PATCH', body: data })
+            fetch(`http://localhost:5000/cars/${car_id}/options`, { method: 'PATCH', body: data })
             .then(res => res.text())
             .then(res => console.log(res))
           }

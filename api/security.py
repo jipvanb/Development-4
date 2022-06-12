@@ -9,49 +9,58 @@ import jwt
 
 
 def login():
-    # Get data from request
-    args = request.form.to_dict()
-    email = args['email']
-    password = args['password']
-    print(email, password, "yes")
-    # Get user from database
-    qry = 'SELECT * FROM `users` WHERE `email` = :email'
-    user = DB.one(qry, {'email': email})
-    if not user:
-        return abort(403)
-    del user['photo']
-    print(user)
-    # Check if user exists and password is correct
-    if not user or not check_password_hash(user['password'], password):
-        return {'message': 'invalid_credentials'}, 401
+    try:
+        # Get data from request
+        args = request.form.to_dict()
+        email = args['email']
+        password = args['password']
+        print(email, password, "yes")
+        # Get user from database
+        qry = 'SELECT * FROM `users` WHERE `email` = :email'
+        user = DB.one(qry, {'email': email})
+        if not user:
+            return abort(403)
+        del user['photo']
+        print(user)
+        # Check if user exists and password is correct
+        if not user or not check_password_hash(user['password'], password):
+            return {'message': 'invalid_credentials'}, 401
 
-    # Delete password from user (should not be sent back!)
-    del user['password']
+        # Delete password from user (should not be sent back!)
+        del user['password']
 
-    # Create JWT
-    dt = datetime.now() + timedelta(days=2)
-    user['exp'] = dt
-    print(user, "yeeeeee        ")
-    access_token = jwt.encode(
-        user, 'qominiqueisshitinoverwatch', algorithm='HS256')
-    resp = make_response(redirect('/'))
-    resp.set_cookie('access_token', access_token, expires="never")
-    return resp, 200
+        # Create JWT
+        dt = datetime.now() + timedelta(days=2)
+        user['exp'] = dt
+        print(user, "yeeeeee        ")
+        access_token = jwt.encode(
+            user, 'qominiqueisshitinoverwatch', algorithm='HS256')
+        resp = make_response(redirect('/'))
+        resp.set_cookie('access_token', access_token, expires="never")
+        return resp, 200
+    except Exception as error:
+        return {'error': str(error)}, 400
 
 
 def me():
-    if not request.cookies.get('access_token'):
-        return abort(401)
+    try:
+        if not request.cookies.get('access_token'):
+            return abort(401)
 
-    user = jwt.decode(request.cookies.get('access_token'),
-                      'qominiqueisshitinoverwatch', algorithms=["HS256"])
-    print(user)
-    return user
+        user = jwt.decode(request.cookies.get('access_token'),
+                          'qominiqueisshitinoverwatch', algorithms=["HS256"])
+        print(user)
+        return user
+    except Exception as error:
+        return {'error': str(error)}, 400
 
 
 def logout():
-    logged = me()
-    print("dasdasd")
-    resp = make_response(redirect(url_for('home')))
-    resp.set_cookie("access_token", '', expires=0)
-    return resp, 200
+    try:
+        logged = me()
+        print("dasdasd")
+        resp = make_response(redirect(url_for('home')))
+        resp.set_cookie("access_token", '', expires=0)
+        return resp, 200
+    except Exception as error:
+        return {'error': str(error)}, 400
