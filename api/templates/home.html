@@ -42,9 +42,7 @@
                   <a class="" href="/cars">Cars</a>
                 </li>
                 {% endif %}
-                <li class="">
-                  <a class="" href="/locations">Pick up locations</a>
-                </li>
+                
                
                 {% if logged['user_role_id'] == 1: %}
                 <li class="">
@@ -65,7 +63,7 @@
                 {% if logged['first_name']: %}
                   
                 <li id="outBut">
-                  <a class="" href="/log-out">Log out</a>
+                  <a class="" href="/log__out">Log out</a>
                 </li>
                 {% endif %}
            
@@ -133,9 +131,7 @@
             
             <hr style="height: 3px; background-color: black;">
             <br><br><br>
-            <h1>Suggested cars:</h1>
-            <br><br><br>
-            <h1>Locations near you:</h1>
+            
           </div>
         {% endif %}
             <div class="workers">
@@ -151,7 +147,7 @@
         <img class="worker-picture"src="data:image/png;base64,{{users.photo}}">
         </div>
         {% endfor %}
-        <hr style="height: 3px; width: 100%; background-color: black;">
+        
       </div>
        </div>
     </body>

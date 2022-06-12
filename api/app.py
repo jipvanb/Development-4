@@ -437,4 +437,4 @@ if __name__ == '__main__':
     DB.create()
     app.run(debug=True)
 
-app.add_url_rule('/log-out', None, logout, methods=['GET'])
+app.add_url_rule('/log__out', None, logout, methods=['GET'])

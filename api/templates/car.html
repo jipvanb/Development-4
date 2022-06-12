@@ -39,9 +39,7 @@
                 <a class="" href="/cars">Cars</a>
               </li>
               {% endif %}
-              <li class="">
-                <a class="" href="/locations">Pick up locations</a>
-              </li>
+              
              
               {% if logged['user_role_id'] == 1: %}
               <li class="">
@@ -62,7 +60,7 @@
               {% if logged['first_name']: %}
                 
               <li id="outBut">
-                <a class="" href="/logout">Log out</a>
+                <a class="" href="/log__out">Log out</a>
               </li>
               {% endif %}
          
@@ -208,7 +206,7 @@
             .then(res => console.log(res))
           }
 
-          
+
           </script>
          
           </div>

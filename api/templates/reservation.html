@@ -20,56 +20,54 @@
     
     <body>
         <div class="container2">
-            <nav style="z-index:3;"class="header">
-                <ul class="">
-                  
-                  <li>
-                    <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
-                  </li>
-                  <li>
-                    <a class="" href="/">Home</a>
-                  </li>
-                  
-                  
-                  {% if not logged['user_role_id'] == 2: %}
-                  <li class="">
-                    <a class="" href="/reserve">Reserve</a>
-                  </li>
-                {% endif %}
-                  {% if logged['user_role_id'] == 2: %}
-                  <li class="">
-                    <a class="" href="/cars">Cars</a>
-                  </li>
-                  {% endif %}
-                  <li class="">
-                    <a class="" href="/locations">Pick up locations</a>
-                  </li>
-                 
-                  {% if logged['user_role_id'] == 1: %}
-                  <li class="">
-                    <a class="" href="/reservations">My reservations</a>
-                  </li>
-                  {% endif %}
-                  {% if logged['user_role_id'] == 2: %}
-                  <li class="">
-                    <a class="" href="/allreservations">Reservations</a>
-                  </li>
-                  {% endif %}
-  
-                  {% if not logged['first_name']: %}
-                  <li id="outBut">
-                    <a class="" href="/login">Log in</a>
-                  </li>
-                  {% endif %}
-                  {% if logged['first_name']: %}
-                    
-                  <li id="outBut">
-                    <a class="" href="/logout">Log out</a>
-                  </li>
-                  {% endif %}
+          <nav class="header">
+            <ul class="">
+              
+              <li>
+                <img class="logo" src="{{ url_for('static',filename='images/logo.png') }}" alt="" />
+              </li>
+              <li>
+                <a class="" href="/">Home</a>
+              </li>
+              
+              
+              {% if not logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/reserve">Reserve</a>
+              </li>
+            {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/cars">Cars</a>
+              </li>
+              {% endif %}
+              
              
-                </ul>
-              </nav>
+              {% if logged['user_role_id'] == 1: %}
+              <li class="">
+                <a class="" href="/reservations">My reservations</a>
+              </li>
+              {% endif %}
+              {% if logged['user_role_id'] == 2: %}
+              <li class="">
+                <a class="" href="/allreservations">Reservations</a>
+              </li>
+              {% endif %}
+
+              {% if not logged['first_name']: %}
+              <li id="outBut">
+                <a class="" href="/login">Log in</a>
+              </li>
+              {% endif %}
+              {% if logged['first_name']: %}
+                
+              <li id="outBut">
+                <a class="" href="/log__out">Log out</a>
+              </li>
+              {% endif %}
+         
+            </ul>
+          </nav>
           </div>
           <div class="car-page">
           
@@ -80,8 +78,8 @@
             <div class="specifications">
               <div id="returnDiv"class="return">
                 <br><br>
-                  <h1 style="color: white; text-align: center;">This is your current reservation. you can edit everything from car to reservation date. </h1>
-                <button id="editB">Edit reservation</button>
+                  <h1 style="color: white; text-align: center; padding-bottom: 5vh;">This is your current reservation. you can edit everything from car to reservation date. </h1>
+                
               </div>
               <form action="/reservations/{{reservation.reservation_id}}/changes" method="post">
 
@@ -191,15 +189,8 @@
           <p id="disabledDays" style="display: none;">{{disabledDays}}</p>
           <p id="maxDate" style="display: none;">{{dates['max']}}</p>
           <div id="foo"></div>
-          {% for id in ids%}
-
-          <h1 id="{{id}}">{{id}}_{{car_date[id]}}</h1>
-          {% endfor %}
-          <h1 id="test">text</h1>
-         
-
-          <button id="o">ooo</button>
-          <button id="b">bbb</button>
+          
+          
           <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
           <script>
              let disabledDays = document.getElementById('disabledDays').textContent 

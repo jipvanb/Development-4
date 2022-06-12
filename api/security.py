@@ -61,6 +61,6 @@ def logout():
         print("dasdasd")
         resp = make_response(redirect(url_for('home')))
         resp.set_cookie("access_token", '', expires=0)
-        return resp, 301
+        return resp, 200
     except Exception as error:
         return {'error': str(error)}, 400
