@@ -203,6 +203,10 @@
                 data.append(inputs[i].name, inputs[i].value)
               }
             }
+            fetch(`http://localhost:5000/cars/${car_id}/options`, { method: 'PATCH', body: data })
+            .then(res => res.text())
+            .then(res => console.log(res))
           }
-      </script>
-</div>
+          </script>
+         
+          </div>
