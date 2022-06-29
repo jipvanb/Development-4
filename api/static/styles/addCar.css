@@ -132,3 +132,21 @@ form {
     transform: translateY(-2px);
 }
  
+#start {
+  background-color: white;
+  border-radius: 0;
+  grid-row: 2;
+  transform: translateY(-111%);
+  height: 100%;
+
+}
+#startLabel {
+  font-size: 2rem;
+  
+  position: relative;
+  padding-left: 15px;
+  transform: translate(0%, 10%);
+  pointer-events: none;
+  color: black;
+  z-index: 1;
+}

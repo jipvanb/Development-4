@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container2">
-          <nav class="header">
+          <nav style="z-index: 3;" class="header">
             <ul class="">
               
               <li>
@@ -84,8 +84,8 @@
             {% endfor %}
         </div>
         {% if cancelled%}
-        <h1>Recently cancelled reservations</h1>
-        <div class="car-page">
+        <h1 style="margin-top:30vh;">Recently cancelled reservations</h1>
+        <div  class="car-page">
             {% for reservation in cancelled%}
             <a style="background-color: {{ reservation.color }};">
                 <div class="car">
@@ -110,7 +110,7 @@
             {% endfor %}
         </div>
         {% endif %}
-        <h1>Past reservations</h1>
+        <h1 style="margin-top:30vh;">Past reservations</h1>
         <div class="car-page">
             {% for reservation in reservationsP%}
             <a style="background-color: {{ reservation.color }};" href="/reservations/{{reservation.reservation_id}}">

@@ -132,12 +132,12 @@
         grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
         grid-template-rows:  12vh 12vh;
         grid-gap: 4vh;
-        grid-row-gap: 45vh;
+        grid-row-gap: 35vh;
         justify-content: center;
         align-items: center;
       }
       #carPage {
-        margin-top: 25vh;
+        margin-top: 15vh;
       }
     
       .car-picture {

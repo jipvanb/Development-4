@@ -77,7 +77,35 @@ def cars():
             if logged['user_role_id'] != 2:
                 return abort(403)
         print(logged)
+        today = datetime.now()
+        qryA = '''SELECT MAX(reservation_date) AS reservation_date, cars_id FROM reservations WHERE reservation_date <= DATE() GROUP BY cars_id'''
+        car_ids = DB.all(qryA)
+        print(car_ids)
+        print(date.today(), "todayyy")
+        today_date = date.today()
+        today_date = str(today_date)
 
+        qryb = '''SELECT id, deletion_date FROM cars WHERE deletion_date <= DATE()'''
+        deletions = DB.all(qryb)
+        print(deletions, "deletions")
+        print(today_date, "dasdasdasd")
+        for deletion in deletions:
+            if deletion['deletion_date']:
+                if deletion['deletion_date'] <= today_date:
+                    print(deletion, "Still a deletion")
+                    qryc = '''SELECT MAX(reservation_date) as reservation_date FROM reservations WHERE cars_id = 10'''
+                    args = {"id": deletion['id']}
+                    reservations = DB.one(qryc, args)
+
+                    print(reservations, "this is a reservation")
+                    datetime_object = datetime.strptime(reservations['reservation_date'], '%Y-%m-%d %H:%M')
+                    print(datetime_object)
+                
+                    if str(datetime_object) <= today_date:
+                        print("deleting")
+                        qry = '''DELETE FROM cars WHERE id = :car_id'''
+                        DB.delete(qry, {"car_id": deletion['id']})
+                        print(deletion, "deleted")
         qry = '''SELECT cars.id, photo, year, color, cars.name as car_name, type.name as type_name FROM cars LEFT JOIN type ON type.id = cars.type_id'''
         cars = DB.all(qry)
         for car in cars:
@@ -164,7 +192,7 @@ def addCars():
             args["pickup_location_id"] = args["pickup_location_id"].split(' ')[
                 0]
             args["avaliability"] = 1
-            args["starting_date"] = date.today()
+            args["starting_date"] = args['start_date']
             args["deletion_date"] = None
             qry = '''INSERT INTO 
             `cars` 

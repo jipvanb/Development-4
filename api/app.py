@@ -70,6 +70,8 @@ def update_reservation(reservation_id):
         req = request.form.to_dict()
         req["reservation_id"] = reservation_id
         req["now"] = now
+        if "pickup" not in req:
+            req['pickup'] = 0
 
         print(req)
 
@@ -219,7 +221,7 @@ def reservationID(reservation_id):
                     temp.append(cars['reservation_date'].split(' ')[0])
                     # print(cars['cars_id'], cars)
                     car_date[f"cars{cars['cars_id']}"] = temp
-        print(car_date)
+        print(car_date, 'cardatete')
 
         carIds = DB.all('SELECT id FROM cars')
         ids = []
@@ -383,7 +385,7 @@ def reservationsChanges(reservation_id):
 
 @app.route('/reservations/<int:car_id>', methods=['POST'])
 def reservations(car_id):
-    try:
+   
         logged = {}
         logged = me()
 
@@ -391,7 +393,7 @@ def reservations(car_id):
         today = str(today).split('.')[0]
         print(today)
         dates = request.form.to_dict()
-        if 'date_of_reservation' in dates:
+        if 'start_date' in dates:
             # give default value to pickup unless value is given
             if 'pickup' not in dates:
                 pickup = 0
@@ -411,9 +413,9 @@ def reservations(car_id):
             
             INSERT INTO 
                 `reservations` 
-                    (`customer_id`, `cars_id`, `reservation_date`, `date_of_reservation`, `pick_up`, `address`)
+                    (`customer_id`, `cars_id`, `reservation_date`, `date_of_reservation`, `pick_up`, `address`, `visibility`)
                 VALUES
-                    (:customer_id, :cars_id, :reservation_date, :date_of_reservation, :pick_up, :address)
+                    (:customer_id, :cars_id, :reservation_date, :date_of_reservation, :pick_up, :address, 1)
             '''
 
             DB.insert(qry, args)
@@ -428,8 +430,7 @@ def reservations(car_id):
             DB.update(qry, {"reservation_id": reservation_id})
             resp = make_response(redirect('/'))
             return resp, 201
-    except Exception as error:
-        return {'error': str(error)}, 400
+    
 
 
 # Start app

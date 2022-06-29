@@ -227,10 +227,15 @@
           }
          })
          console.log(days)
+         var today = new Date();
+         
+         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+         console.log(date)
+
             config = {
               enableTime: true,
               dateFormat: "Y-m-d H:i",
-              minDate: "2022-06-02",
+              minDate: date,
               maxDate: maxDate,
               time_24hr: true,
               minTime: "08:00",
