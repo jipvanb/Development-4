@@ -247,7 +247,7 @@ def allreservations():
 
 
 def reservationsU():
-    try:
+    
         logged = {}
         if not request.cookies.get('access_token'):
             return abort(401)
@@ -290,22 +290,26 @@ def reservationsU():
         reservations = DB.all(qry, {"customer_id": logged['id']})
         qryP = ''' SELECT  cars.photo, users.photo AS user_photo, reservations.id as reservation_id, first_name, last_name, customer_id, reservation_date, date_of_reservation, cars.id AS car_id,  year, color, cars.name as car_name, type.name as type_name FROM reservations LEFT JOIN cars on cars.id = reservations.cars_id LEFT JOIN type ON type.id = cars.type_id LEFT JOIN users on customer_id = users.id WHERE customer_id = :customer_id AND reservation_date < DATE() AND visibility = 1'''
         reservationsP = DB.all(qryP, {"customer_id": logged['id']})
-        for reservation in reservations:
+        if reservations:
+         for reservation in reservations:
             reservation['user_photo'] = base64.b64encode(
                 reservation['user_photo']).decode('ascii')
             reservation['photo'] = base64.b64encode(
                 reservation['photo']).decode('ascii')
-        for reservation in cancelled:
+        if cancelled:
+         for reservation in cancelled:
             reservation['user_photo'] = base64.b64encode(
                 reservation['user_photo']).decode('ascii')
             reservation['photo'] = base64.b64encode(
                 reservation['photo']).decode('ascii')
-        for reservation in reservationsP:
-            reservation['user_photo'] = base64.b64encode(
+        if reservationsP:
+         for reservation in reservationsP:
+            if reservation['user_photo']:
+             reservation['user_photo'] = base64.b64encode(
                 reservation['user_photo']).decode('ascii')
-            reservation['photo'] = base64.b64encode(
+            if reservation['photo']:     
+             reservation['photo'] = base64.b64encode(
                 reservation['photo']).decode('ascii')
         return render_template('reservations.html', logged=logged, reservations=reservations, reservationsP=reservationsP, cancelled=cancelled)
         # return json.dumps(cars[1
-    except Exception as error:
-        return {'error': str(error)}, 400
+  
